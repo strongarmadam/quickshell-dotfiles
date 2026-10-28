@@ -24,9 +24,9 @@ and machine-specific monitor settings are excluded.
 
 | Moonlit Forest | Coral Lagoon |
 | --- | --- |
-| ![Moonlit Forest wallpaper](home/.config/themes/Moonlit%20Forest/wallpaper.jpg) | ![Coral Lagoon wallpaper](home/.config/themes/Coral%20Lagoon/wallpaper.jpg) |
+| ![Moonlit Forest wallpaper](home/.config/themes/Moonlit%20Forest/Screenshot.png) | ![Coral Lagoon wallpaper](home/.config/themes/Coral%20Lagoon/wallpaper.jpg) |
 
-These images show included wallpapers, not screenshots of an installed desktop.
+These images show screenshots of an installed desktop.
 
 ## Requirements
 
