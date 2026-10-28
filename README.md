@@ -22,9 +22,9 @@ and machine-specific monitor settings are excluded.
 - Theme-aware GTK/Kitty styling, session-lock configuration, and SDDM theme assets.
 - Source for the customized workspace-overview plugin, built locally by the setup wizard by default.
 
-| Moonlit Forest | Coral Lagoon |
+| Moonlit Forest | Rivendell | 
 | --- | --- |
-| ![Moonlit Forest Desktop](home/.config/themes/Moonlit%20Forest/Screenshot.png) | ![Coral Lagoon wallpaper](home/.config/themes/Coral%20Lagoon/wallpaper.jpg) | ![Rivendell Desktop](home/.config/themes/Rivendell/Screenshot1.png)
+| ![Moonlit Forest Desktop](home/.config/themes/Moonlit%20Forest/Screenshot.png) | ![Rivendell Desktop](home/.config/themes/Rivendell/Screenshot1.png)
 
 These images show screenshots of an installed desktop.
 
