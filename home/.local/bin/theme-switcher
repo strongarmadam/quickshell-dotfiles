@@ -1,0 +1,65 @@
+#!/usr/bin/env python3
+"""Apply desktop appearance; report independent component failures visibly."""
+import importlib.util, os, subprocess, sys, datetime
+from pathlib import Path
+HOME=Path.home()
+LOG=HOME/'.local/state/quickshell-dotfiles/theme-switcher.log'
+
+def link(path,target):
+    path.parent.mkdir(parents=True,exist_ok=True)
+    temp=path.with_name(path.name+'.new-'+str(os.getpid()))
+    if temp.is_symlink():temp.unlink()
+    temp.symlink_to(os.path.relpath(target,path.parent));os.replace(temp,path)
+
+def run(args):
+    result=subprocess.run(args,capture_output=True,text=True,timeout=45)
+    if result.returncode:
+        raise RuntimeError((result.stderr or result.stdout).strip() or 'Command failed: '+args[0])
+    return result.stdout.strip()
+
+def report(message):
+    print(message,flush=True)
+    with LOG.open('a') as out:out.write(message+'\n')
+
+def notify(title,message):
+    try:subprocess.run(['notify-send',title,message],capture_output=True,timeout=3)
+    except (OSError,subprocess.SubprocessError):pass
+
+def main():
+    LOG.parent.mkdir(parents=True,exist_ok=True)
+    LOG.write_text(datetime.datetime.now().isoformat()+'\n');LOG.chmod(0o600)
+    errors=[];warnings=[]
+    try:
+        if len(sys.argv)!=2:raise ValueError('Usage: theme-switcher "Theme name"')
+        spec=importlib.util.spec_from_file_location('creator',HOME/'.config/quickshell/theme-creator/backend.py')
+        c=importlib.util.module_from_spec(spec);spec.loader.exec_module(c)
+        theme=c.theme_path(sys.argv[1]);c.activate(theme.name)
+        for path,target in [(HOME/'.config/themes/current',theme),(HOME/'.config/hypr/theme.lua',theme/'hyprland.lua')]:link(path,target)
+        for ver in ('gtk-3.0','gtk-4.0'):
+            for name in ('gtk.css','file-dialogs.css'):link(HOME/'.config'/ver/name,HOME/'.config/themes/current'/ver/name)
+        report('Selected '+theme.name)
+    except Exception as e:
+        report('Theme selection failed: '+str(e));notify('Theme switch failed',str(e));return 1
+    # A missing wallpaper daemon must not prevent the widgets or compositor updating.
+    def step(label,args,critical=False):
+        try:run(args);report(label+': OK')
+        except (OSError,subprocess.SubprocessError,RuntimeError) as e:
+            message=label+': '+str(e);(errors if critical else warnings).append(message);report(message)
+    step('Wallpaper',[str(HOME/'.local/bin/desktop-wallpaper')])
+    variables=[name for name in ('WAYLAND_DISPLAY','HYPRLAND_INSTANCE_SIGNATURE','XDG_CURRENT_DESKTOP','DISPLAY') if os.environ.get(name)]
+    if variables:step('Session environment',['systemctl','--user','import-environment',*variables])
+    step('User service definitions',['systemctl','--user','daemon-reload'])
+    if Path('/usr/local/bin/quickshell-login-theme').is_file():
+        step('Login theme',['sudo','-n','/usr/local/bin/quickshell-login-theme',theme.name])
+    step('Compositor',['hyprctl','reload'],critical=True)
+    step('Desktop widgets',['systemctl','--user','restart','quickshell-desktop.service'],critical=True)
+    # Kitty is optional. Its absence, or no running Kitty process, is harmless.
+    try:subprocess.run(['pkill','-SIGUSR1','-x','kitty'],capture_output=True,timeout=3)
+    except (OSError,subprocess.SubprocessError):pass
+    if errors:
+        notify('Theme only partly applied',errors[0]+'\nDetails: '+str(LOG));return 1
+    if warnings:notify('Applied '+theme.name+' with warnings',warnings[0]+'\nDetails: '+str(LOG))
+    else:notify('Theme Manager','Applied '+theme.name)
+    return 0
+if __name__=='__main__':
+    sys.exit(main())

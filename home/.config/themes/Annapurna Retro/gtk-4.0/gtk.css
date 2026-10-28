@@ -1,0 +1,132 @@
+/* =========================================================
+   ANNAPURNA RETRO — GTK4 / Libadwaita
+   Pamac and GTK4 applications
+   ========================================================= */
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 11pt;
+}
+
+/* Main surfaces */
+window,
+.background,
+dialog {
+    background-color: #071e35;
+    color: #f1faff;
+}
+
+/* Main content */
+view,
+list,
+listview,
+gridview,
+scrolledwindow {
+    background-color: #071e35;
+    color: #f1faff;
+}
+
+/* Header bars */
+headerbar {
+    background-color: #10354d;
+    color: #f1faff;
+    border-bottom: 3px solid #ffffff;
+}
+
+headerbar button {
+    color: #f1faff;
+    border-radius: 0;
+}
+
+headerbar button:hover {
+    background-color: #4c91b2;
+    color: #9bd65b;
+}
+
+/* Buttons */
+button {
+    background-color: #10354d;
+    color: #f1faff;
+    border: 3px solid #ffffff;
+    border-radius: 0;
+}
+
+button:hover {
+    background-color: #4c91b2;
+    color: #9bd65b;
+}
+
+button:active,
+button:checked {
+    background-color: #45b8ff;
+    color: #071e35;
+    border-color: #ffffff;
+}
+
+/* Entries / search */
+entry {
+    background-color: #10354d;
+    color: #f1faff;
+    border: 3px solid #ffffff;
+    border-radius: 0;
+}
+
+entry:focus {
+    border-color: #ffffff;
+}
+
+/* Lists / selections */
+row:selected,
+list row:selected,
+.navigation-sidebar row:selected {
+    background-color: #45b8ff;
+    color: #071e35;
+}
+
+row:hover,
+list row:hover {
+    background-color: #4c91b2;
+}
+
+/* Scrollbars */
+scrollbar {
+    background-color: #071e35;
+}
+
+scrollbar slider {
+    background-color: #4c91b2;
+    border-radius: 0;
+}
+
+scrollbar slider:hover {
+    background-color: #45b8ff;
+}
+
+/* Tooltips */
+tooltip {
+    background-color: #10354d;
+    color: #f1faff;
+    border: 3px solid #ffffff;
+    border-radius: 0;
+}
+
+/* Menus / popovers */
+popover,
+popover.background,
+.menu {
+    background-color: #10354d;
+    color: #f1faff;
+    border: 3px solid #ffffff;
+    border-radius: 0;
+}
+
+/* Focus */
+*:focus {
+    outline-color: #ffffff;
+}
+
+@import url("file-dialogs.css");
+
+/* Square retro controls throughout GTK. */
+* { border-radius: 0; }
+button, entry { border-width: 3px; }

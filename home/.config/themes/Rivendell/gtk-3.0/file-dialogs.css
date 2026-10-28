@@ -1,0 +1,92 @@
+/* File chooser palette: Rivendell. */
+dialog,
+filechooser {
+    background-image: none;
+    background-color: #1e241c;
+    color: #e2dcc5;
+}
+dialog headerbar,
+dialog .dialog-action-area,
+filechooser .sidebar,
+filechooser .places-sidebar,
+filechooser .navigation-sidebar {
+    background-image: none;
+    background-color: #2c281f;
+    color: #e2dcc5;
+}
+filechooser treeview,
+filechooser .view,
+filechooser list,
+filechooser listview,
+filechooser scrolledwindow {
+    background-image: none;
+    background-color: #1e241c;
+    color: #e2dcc5;
+}
+filechooser row,
+filechooser .sidebar row {
+    color: #e2dcc5;
+    border-radius: 12px;
+}
+filechooser row:hover {
+    background-image: none;
+    background-color: #2c281f;
+    color: #b9b59c;
+}
+filechooser row:selected,
+filechooser treeview:selected,
+filechooser .view:selected {
+    background-image: none;
+    background-color: #aa8953;
+    color: #1e241c;
+}
+dialog button,
+filechooser button,
+dialog entry,
+filechooser entry {
+    background-image: none;
+    background-color: #2c281f;
+    color: #e2dcc5;
+    border: 1px solid #76674b;
+    border-radius: 12px;
+    box-shadow: none;
+}
+dialog button:hover,
+filechooser button:hover,
+dialog entry:focus,
+filechooser entry:focus {
+    border-color: #b9b59c;
+    color: #b9b59c;
+}
+dialog button.suggested-action,
+dialog button.suggested-action:backdrop,
+filechooser button:checked {
+    background-image: none;
+    background-color: #aa8953;
+    color: #1e241c;
+    border-color: #b9b59c;
+}
+dialog button.suggested-action:hover {
+    background-image: none;
+    background-color: #b9b59c;
+    color: #1e241c;
+}
+dialog button:disabled,
+filechooser button:disabled {
+    color: #76674b;
+}
+dialog entry selection,
+filechooser entry selection {
+    background-image: none;
+    background-color: #aa8953;
+    color: #1e241c;
+}
+filechooser scrollbar slider {
+    background-image: none;
+    background-color: #76674b;
+    border-radius: 12px;
+}
+filechooser scrollbar slider:hover {
+    background-image: none;
+    background-color: #aa8953;
+}

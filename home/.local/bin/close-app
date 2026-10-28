@@ -1,0 +1,58 @@
+#!/usr/bin/python3
+"""Close the focused Hyprland window; quit a windowless app left in the tray."""
+import json
+import os
+import re
+import signal
+import subprocess
+import time
+
+
+def query(command):
+    return json.loads(subprocess.check_output(
+        ["hyprctl", command, "-j"], timeout=3, stderr=subprocess.DEVNULL
+    ))
+
+
+def has_window(clients, pid, app_class):
+    # A window on another workspace still counts; do not use "visible".
+    return any(
+        (w.get("pid") == pid or
+         (app_class and w.get("class") == app_class))
+        and w.get("mapped", True) and not w.get("hidden", False)
+        for w in clients
+    )
+
+
+def main():
+    window = query("activewindow")
+    address = window.get("address", "")
+    pid = window.get("pid", 0)
+    if not re.fullmatch(r"0x[0-9a-fA-F]+", address) or pid <= 1:
+        return
+    # A pidfd ensures a recycled PID can never target a different process.
+    try:
+        process = os.pidfd_open(pid)
+    except ProcessLookupError:
+        return
+    try:
+        subprocess.run([
+            "hyprctl", "dispatch",
+            f'hl.dsp.window.close({{ window = "address:{address}" }})'
+        ], check=True, timeout=3, stdout=subprocess.DEVNULL)
+        time.sleep(3)
+        if not has_window(query("clients"), pid, window.get("class")):
+            try:
+                signal.pidfd_send_signal(process, signal.SIGTERM)
+            except ProcessLookupError:
+                pass
+    finally:
+        os.close(process)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (OSError, ValueError, subprocess.SubprocessError):
+        # If compositor state cannot be verified, do not terminate anything.
+        pass

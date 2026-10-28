@@ -1,0 +1,12 @@
+[SddmGreeterTheme]
+Name=Rivendell
+Description=Compact translucent Rivendell login screen
+Type=sddm-theme
+Author=Adam
+License=MIT
+Version=2.0
+MainScript=Main.qml
+ConfigFile=theme.conf
+Theme-Id=rivendell
+Theme-API=2.0
+QtVersion=6

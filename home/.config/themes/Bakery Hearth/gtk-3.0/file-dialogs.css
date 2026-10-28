@@ -1,0 +1,96 @@
+/* File chooser palette: Bakery Hearth. */
+dialog,
+filechooser {
+    background-image: none;
+    background-color: #2b1b14;
+    color: #fce3c1;
+}
+dialog headerbar,
+dialog .dialog-action-area,
+filechooser .sidebar,
+filechooser .places-sidebar,
+filechooser .navigation-sidebar {
+    background-image: none;
+    background-color: #5a3e2e;
+    color: #fce3c1;
+}
+filechooser treeview,
+filechooser .view,
+filechooser list,
+filechooser listview,
+filechooser scrolledwindow {
+    background-image: none;
+    background-color: #2b1b14;
+    color: #fce3c1;
+}
+filechooser row,
+filechooser .sidebar row {
+    color: #fce3c1;
+    border-radius: 4px;
+}
+filechooser row:hover {
+    background-image: none;
+    background-color: #5a3e2e;
+    color: #cfb28f;
+}
+filechooser row:selected,
+filechooser treeview:selected,
+filechooser .view:selected {
+    background-image: none;
+    background-color: #6d2636;
+    color: #fce3c1;
+}
+dialog button,
+filechooser button,
+dialog entry,
+filechooser entry {
+    background-image: none;
+    background-color: #5a3e2e;
+    color: #fce3c1;
+    border: 1px solid #b58c6b;
+    border-radius: 4px;
+    box-shadow: none;
+}
+dialog button:hover,
+filechooser button:hover,
+dialog entry:focus,
+filechooser entry:focus {
+    border-color: #cfb28f;
+    color: #cfb28f;
+}
+dialog button.suggested-action,
+dialog button.suggested-action:backdrop,
+filechooser button:checked {
+    background-image: none;
+    background-color: #6d2636;
+    color: #fce3c1;
+    border-color: #cfb28f;
+}
+dialog button.suggested-action:hover {
+    background-image: none;
+    background-color: #cfb28f;
+    color: #2b1b14;
+}
+dialog button:disabled,
+filechooser button:disabled {
+    color: #b58c6b;
+}
+dialog entry selection,
+filechooser entry selection {
+    background-image: none;
+    background-color: #6d2636;
+    color: #fce3c1;
+}
+filechooser scrollbar slider {
+    background-image: none;
+    background-color: #b58c6b;
+    border-radius: 4px;
+}
+filechooser scrollbar slider:hover {
+    background-image: none;
+    background-color: #dfb88e;
+}
+
+dialog button, filechooser button { border-radius: 14px; }
+
+filechooser treeview header button { border-radius: 3px; }

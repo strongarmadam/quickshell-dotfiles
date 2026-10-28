@@ -1,0 +1,11 @@
+name: Check public dotfiles
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit export and test installer
+        run: python3 scripts/check.py

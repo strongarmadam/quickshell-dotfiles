@@ -1,0 +1,5 @@
+#!/bin/bash
+set -euo pipefail
+config="$HOME/.config/quickshell/clipboard"
+if quickshell ipc -p "$config" call clipboard toggle 2>/dev/null; then exit 0; fi
+exec quickshell -n -p "$config"

@@ -1,0 +1,223 @@
+/* =========================================================
+   AUTUMN GROVE — GTK3
+   Thunar / GTK applications
+   ========================================================= */
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 11pt;
+}
+
+/* ---------------------------------------------------------
+   Main surfaces
+   --------------------------------------------------------- */
+
+window,
+.background {
+    background-color: #241b16;
+    color: #e5d8bd;
+}
+
+.view,
+.view text,
+.view treeview,
+treeview.view,
+iconview {
+    background-color: #241b16;
+    color: #e5d8bd;
+}
+
+/* ---------------------------------------------------------
+   Sidebar
+   --------------------------------------------------------- */
+
+.sidebar,
+.thunar-side-pane {
+    background-color: #1d1511;
+    color: #b8a789;
+}
+
+.sidebar row,
+.thunar-side-pane row {
+    border-radius: 9px;
+    padding: 4px 6px;
+    background-color: transparent;
+    color: #b8a789;
+}
+
+.sidebar row:hover,
+.thunar-side-pane row:hover {
+    background-color: #30231c;
+    color: #e5d8bd;
+}
+
+.sidebar row:selected,
+.thunar-side-pane row:selected {
+    background-color: #c59b62;
+    color: #241b16;
+}
+
+/* ---------------------------------------------------------
+   File view
+   --------------------------------------------------------- */
+
+.view:hover {
+    background-color: #2b2019;
+}
+
+.view:selected,
+.view:selected:focus,
+treeview:selected,
+iconview:selected {
+    background-color: #c59b62;
+    color: #241b16;
+}
+
+/* ---------------------------------------------------------
+   Toolbar / header
+   --------------------------------------------------------- */
+
+toolbar,
+headerbar {
+    background-color: #30231c;
+    color: #e5d8bd;
+    border-bottom: 1px solid #655743;
+    box-shadow: none;
+}
+
+toolbar button,
+headerbar button {
+    background-color: transparent;
+    color: #b8a789;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    box-shadow: none;
+}
+
+toolbar button:hover,
+headerbar button:hover {
+    background-color: #3b2c22;
+    color: #c59b62;
+    border-color: #655743;
+}
+
+toolbar button:active,
+headerbar button:active {
+    background-color: #655743;
+    color: #e5d8bd;
+}
+
+/* ---------------------------------------------------------
+   Path / location bar
+   --------------------------------------------------------- */
+
+entry,
+.path-bar,
+.path-bar button,
+.location-bar {
+    background-color: #2b2019;
+    color: #e5d8bd;
+    border: 1px solid #655743;
+    border-radius: 9px;
+    box-shadow: none;
+}
+
+entry:focus,
+.path-bar:focus {
+    border-color: #c59b62;
+}
+
+/* ---------------------------------------------------------
+   Buttons
+   --------------------------------------------------------- */
+
+button {
+    background-color: #30231c;
+    color: #b8a789;
+    border: 1px solid #655743;
+    border-radius: 8px;
+    box-shadow: none;
+}
+
+button:hover {
+    background-color: #3b2c22;
+    color: #c59b62;
+    border-color: #8b795d;
+}
+
+button:active,
+button:checked {
+    background-color: #c59b62;
+    color: #241b16;
+}
+
+/* ---------------------------------------------------------
+   Menus / context menus
+   --------------------------------------------------------- */
+
+menu,
+.menu,
+popover {
+    background-color: #30231c;
+    color: #e5d8bd;
+    border: 1px solid #655743;
+    border-radius: 10px;
+}
+
+menuitem,
+.menuitem {
+    color: #e5d8bd;
+    border-radius: 7px;
+}
+
+menuitem:hover,
+.menuitem:hover {
+    background-color: #655743;
+    color: #e5d8bd;
+}
+
+/* ---------------------------------------------------------
+   Scrollbars
+   --------------------------------------------------------- */
+
+scrollbar {
+    background-color: #1d1511;
+}
+
+scrollbar slider {
+    background-color: #655743;
+    border-radius: 8px;
+}
+
+scrollbar slider:hover {
+    background-color: #8b795d;
+}
+
+/* ---------------------------------------------------------
+   Separators
+   --------------------------------------------------------- */
+
+separator {
+    background-color: #655743;
+}
+
+/* ---------------------------------------------------------
+   Tooltips
+   --------------------------------------------------------- */
+
+tooltip {
+    background-color: #30231c;
+    color: #e5d8bd;
+    border: 1px solid #8b795d;
+    border-radius: 9px;
+}
+
+/* ---------------------------------------------------------
+   Selection / focus
+   --------------------------------------------------------- */
+
+*:focus {
+    outline-color: #c59b62;
+}
+
+@import url("file-dialogs.css");

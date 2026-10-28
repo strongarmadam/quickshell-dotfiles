@@ -1,0 +1,164 @@
+/* CORAL LAGOON — GTK3 / THUNAR */
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 12px;
+}
+
+/* Main window */
+window,
+window.background {
+    background-color: #062b40;
+    color: #d5edf7;
+}
+
+/* Header / toolbar */
+headerbar,
+toolbar {
+    background-color: #0a3d57;
+    color: #f0f9ff;
+    border-bottom: 2px solid #206782;
+    box-shadow: none;
+}
+
+/* Toolbar buttons */
+toolbar button,
+headerbar button {
+    background-color: #0a3d57;
+    color: #d5edf7;
+    border: 1px solid transparent;
+    border-radius: 24px;
+    box-shadow: none;
+}
+
+toolbar button:hover,
+headerbar button:hover {
+    background-color: #206782;
+    color: #cfb5ef;
+    border-color: #efb957;
+}
+
+/* Location / path bar */
+entry,
+.path-bar,
+.location-bar {
+    background-color: #062b40;
+    color: #f0f9ff;
+    border: 1px solid #206782;
+    border-radius: 24px;
+    box-shadow: none;
+}
+
+entry:focus {
+    border-color: #efb957;
+}
+
+/* Sidebar */
+.thunar-side-pane,
+.sidebar {
+    background-color: #042235;
+    color: #aecddf;
+    border-right: 2px solid #206782;
+}
+
+.thunar-side-pane row,
+.sidebar row {
+    background-color: transparent;
+    color: #aecddf;
+    border-radius: 24px;
+}
+
+.thunar-side-pane row:hover,
+.sidebar row:hover {
+    background-color: #0a3d57;
+    color: #cfb5ef;
+}
+
+.thunar-side-pane row:selected,
+.sidebar row:selected {
+    background-color: #efb957;
+    color: #062b40;
+}
+
+/* File view */
+.view,
+treeview,
+iconview {
+    background-color: #062b40;
+    color: #d5edf7;
+}
+
+.view:selected,
+treeview:selected,
+iconview:selected {
+    background-color: #efb957;
+    color: #062b40;
+}
+
+/* File names */
+.view text,
+treeview {
+    color: #d5edf7;
+}
+
+/* Menus */
+menu,
+.menu {
+    background-color: #0a3d57;
+    color: #d5edf7;
+    border: 1px solid #206782;
+}
+
+menuitem,
+.menuitem {
+    background-color: transparent;
+    color: #d5edf7;
+    border-radius: 24px;
+}
+
+menuitem:hover,
+.menuitem:hover {
+    background-color: #efb957;
+    color: #062b40;
+}
+
+/* Context menus */
+popover {
+    background-color: #0a3d57;
+    color: #d5edf7;
+    border: 1px solid #206782;
+    border-radius: 24px;
+}
+
+/* Scrollbars */
+scrollbar slider {
+    background-color: #206782;
+    border-radius: 24px;
+}
+
+scrollbar slider:hover {
+    background-color: #efb957;
+}
+
+/* Separators */
+separator {
+    background-color: #206782;
+}
+
+/* Tooltips */
+tooltip {
+    background-color: #0a3d57;
+    color: #f0f9ff;
+    border: 1px solid #efb957;
+    border-radius: 24px;
+}
+
+@import url("file-dialogs.css");
+
+/* Coral Lagoon: bubble controls and lavender focus rings. */
+button, entry, spinbutton, combobox button { border-radius: 999px; padding-left: 14px; padding-right: 14px; }
+button:hover, entry:focus { border-color: #cfb5ef; }
+menu, popover, tooltip { border-radius: 28px; padding: 10px; }
+progressbar trough, progressbar progress, scale trough, scale highlight, scrollbar slider { border-radius: 999px; }
+progressbar progress, scale highlight { background-color: #efb957; }
+.sidebar row, .navigation-sidebar row { border-radius: 999px; margin: 3px 6px; }

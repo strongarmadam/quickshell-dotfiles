@@ -1,0 +1,2 @@
+#!/bin/sh
+exec quickshell ipc -p "$HOME/.config/themes/current/quickshell" call widgets toggleMonitors

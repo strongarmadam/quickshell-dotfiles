@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+"""Prepare wallpaper assets; Quickshell renders the desktop background."""
+import json, os, subprocess, sys
+from pathlib import Path
+
+def prepare(home):
+    theme = home / '.config/themes/current'
+    image = next((theme / name for name in ('wallpaper.png', 'wallpaper.jpg') if (theme / name).is_file()), None)
+    if image is None:
+        raise RuntimeError('The selected theme has no wallpaper.png or wallpaper.jpg')
+    folder = home / '.config/hypr'
+    link = folder / 'theme-wallpaper'
+    temporary = folder / ('.theme-wallpaper-' + str(os.getpid()))
+    temporary.symlink_to(image.resolve())
+    os.replace(temporary, link)
+    # Cache the overview backdrop whenever the selected theme changes.
+    overview = folder / 'overview-wallpaper.png'
+    temporary_overview = folder / ('.overview-wallpaper-' + str(os.getpid()) + '.png')
+    subprocess.run(['magick', str(image.resolve()), '-auto-orient', '-resize', '1920x1920>',
+                    '-blur', '0x18', '-evaluate', 'multiply', '0.4', str(temporary_overview)],
+                   check=True, timeout=30)
+    os.replace(temporary_overview, overview)
+    config = folder / 'hyprpaper.conf'
+    temp_config = folder / ('.hyprpaper-' + str(os.getpid()))
+    temp_config.write_text('''# Selected theme; maintained by desktop-wallpaper.
+wallpaper {
+    monitor =
+    path = ~/.config/hypr/theme-wallpaper
+    fit_mode = cover
+}
+splash = false
+ipc = true
+''')
+    os.replace(temp_config, config)
+    return image.resolve()
+
+def main():
+    # Every bundled shell renders its own background. Prepare lock/overview assets
+    # without requiring a second wallpaper daemon or a separate GPU context.
+    print(prepare(Path.home()))
+
+if __name__ == '__main__':
+    try: main()
+    except Exception as exc:
+        print(str(exc), file=sys.stderr); sys.exit(1)

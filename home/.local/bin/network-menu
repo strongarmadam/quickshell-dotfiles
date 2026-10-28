@@ -1,0 +1,5 @@
+#!/bin/bash
+set -euo pipefail
+config="$HOME/.config/quickshell/network"
+if quickshell ipc -p "$config" call network toggle 2>/dev/null; then exit 0; fi
+exec quickshell -n -p "$config"

@@ -1,0 +1,12 @@
+[SddmGreeterTheme]
+Name=Bakery Hearth
+Description=Compact translucent Bakery Hearth login screen
+Type=sddm-theme
+Author=Adam
+License=MIT
+Version=2.0
+MainScript=Main.qml
+ConfigFile=theme.conf
+Theme-Id=bakery-hearth
+Theme-API=2.0
+QtVersion=6

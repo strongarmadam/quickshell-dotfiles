@@ -1,0 +1,12 @@
+[SddmGreeterTheme]
+Name=Space Green
+Description=Compact translucent Space Green login screen
+Type=sddm-theme
+Author=Adam
+License=MIT
+Version=2.0
+MainScript=Main.qml
+ConfigFile=theme.conf
+Theme-Id=space-green
+Theme-API=2.0
+QtVersion=6

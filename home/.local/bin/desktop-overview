@@ -1,0 +1,66 @@
+#!/usr/bin/env python3
+"""Build the overview locally; refuse to load it after runtime packages change."""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import tempfile
+
+HOME = Path.home()
+DEST = HOME / '.local/lib/hyprland/hyprexpo-theme-bg.so'
+META = DEST.with_suffix('.json')
+SOURCE = HOME / '.local/share/quickshell-dotfiles/overview-source'
+
+def fingerprint():
+    binary = shutil.which('Hyprland')
+    if not binary: raise RuntimeError('Hyprland is not installed')
+    version = json.loads(subprocess.check_output([binary, '--version-json'], text=True, timeout=10))
+    # Include dependency versions as well as the compositor ABI and binary.
+    deps = subprocess.check_output(['pkg-config', '--modversion', 'hyprland', 'aquamarine', 'hyprutils', 'hyprgraphics', 'hyprlang', 'hyprcursor'], text=True, timeout=10)
+    return {'abi': version['abiHash'], 'binary': hashlib.sha256(Path(binary).read_bytes()).hexdigest(), 'dependencies': deps}
+
+def compatible():
+    try:
+        saved = json.loads(META.read_text())
+        return DEST.is_file() and saved['runtime'] == fingerprint() and saved['plugin'] == hashlib.sha256(DEST.read_bytes()).hexdigest()
+    except (OSError, ValueError, KeyError, RuntimeError, subprocess.SubprocessError): return False
+
+def build(source):
+    before = fingerprint()
+    if not (source / 'Makefile').is_file(): raise RuntimeError('Overview source missing; rerun the dotfiles installer.')
+    with tempfile.TemporaryDirectory(prefix='quickshell-overview-') as folder:
+        work = Path(folder) / 'source'
+        shutil.copytree(source, work, ignore=shutil.ignore_patterns('.git', '*.so', '*.o', '__pycache__'))
+        subprocess.run(['make', '-C', str(work), 'CXX=clang++'], check=True)
+        if before != fingerprint(): raise RuntimeError('Runtime changed during build; please rebuild.')
+        DEST.parent.mkdir(parents=True, exist_ok=True)
+        temporary = DEST.with_name(DEST.name + '.new-' + str(os.getpid()))
+        shutil.copy2(work / 'hyprexpo.so', temporary)
+        temporary.chmod(0o755)
+        os.replace(temporary, DEST)
+        data = {'runtime': before, 'plugin': hashlib.sha256(DEST.read_bytes()).hexdigest()}
+        temporary_meta = META.with_name(META.name + '.new-' + str(os.getpid()))
+        temporary_meta.write_text(json.dumps(data, indent=2) + '\n')
+        os.replace(temporary_meta, META)
+    print('Overview built. Log out and back in to enable Super+W. Rebuild after Hyprland/dependency upgrades.')
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    action = parser.add_mutually_exclusive_group(required=True)
+    action.add_argument('--build', action='store_true')
+    action.add_argument('--check', action='store_true')
+    parser.add_argument('--source', type=Path, default=SOURCE)
+    args = parser.parse_args()
+    if args.check:
+        if compatible(): print('compatible'); return 0
+        return 1
+    build(args.source)
+    return 0
+
+if __name__ == '__main__':
+    try: raise SystemExit(main())
+    except (OSError, ValueError, KeyError, RuntimeError, subprocess.SubprocessError) as exc:
+        print('Overview: ' + str(exc)); raise SystemExit(1)

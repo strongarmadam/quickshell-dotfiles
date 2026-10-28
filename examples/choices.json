@@ -1,0 +1,16 @@
+{
+  "theme": "Moonlit Forest",
+  "browser": "firefox",
+  "terminal": "kitty",
+  "terminal_exec": "-e",
+  "files": "kitty -e yazi",
+  "monitor": "kitty -e btop",
+  "browser_key": "SUPER + B",
+  "terminal_key": "SUPER + RETURN",
+  "files_key": "SUPER + E",
+  "keyboard": "us",
+  "scale": 1.0,
+  "clipboard": true,
+  "media": true,
+  "extra_apps": []
+}

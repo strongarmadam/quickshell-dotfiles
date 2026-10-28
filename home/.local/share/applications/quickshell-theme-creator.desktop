@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Theme Creator
+Comment=Create and edit your own desktop themes
+Exec="@HOME@/.local/bin/quickshell-settings" creator
+Icon=preferences-desktop-theme
+Terminal=false
+Categories=Settings;DesktopSettings;

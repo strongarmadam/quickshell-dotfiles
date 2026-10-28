@@ -1,0 +1,156 @@
+/* 16-BIT SUNSET — GTK3 / THUNAR */
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 12px;
+}
+
+/* Main window */
+window,
+window.background {
+    background-color: #0d1117;
+    color: #c9d1d9;
+}
+
+/* Header / toolbar */
+headerbar,
+toolbar {
+    background-color: #161b22;
+    color: #f0f6fc;
+    border-bottom: 2px solid #30363d;
+    box-shadow: none;
+}
+
+/* Toolbar buttons */
+toolbar button,
+headerbar button {
+    background-color: #161b22;
+    color: #c9d1d9;
+    border: 1px solid transparent;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+toolbar button:hover,
+headerbar button:hover {
+    background-color: #30363d;
+    color: #f0c674;
+    border-color: #e3b341;
+}
+
+/* Location / path bar */
+entry,
+.path-bar,
+.location-bar {
+    background-color: #0d1117;
+    color: #f0f6fc;
+    border: 1px solid #30363d;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+entry:focus {
+    border-color: #e3b341;
+}
+
+/* Sidebar */
+.thunar-side-pane,
+.sidebar {
+    background-color: #0a0e13;
+    color: #b1bac4;
+    border-right: 2px solid #30363d;
+}
+
+.thunar-side-pane row,
+.sidebar row {
+    background-color: transparent;
+    color: #b1bac4;
+    border-radius: 0;
+}
+
+.thunar-side-pane row:hover,
+.sidebar row:hover {
+    background-color: #161b22;
+    color: #f0c674;
+}
+
+.thunar-side-pane row:selected,
+.sidebar row:selected {
+    background-color: #e3b341;
+    color: #0d1117;
+}
+
+/* File view */
+.view,
+treeview,
+iconview {
+    background-color: #0d1117;
+    color: #c9d1d9;
+}
+
+.view:selected,
+treeview:selected,
+iconview:selected {
+    background-color: #e3b341;
+    color: #0d1117;
+}
+
+/* File names */
+.view text,
+treeview {
+    color: #c9d1d9;
+}
+
+/* Menus */
+menu,
+.menu {
+    background-color: #161b22;
+    color: #c9d1d9;
+    border: 1px solid #30363d;
+}
+
+menuitem,
+.menuitem {
+    background-color: transparent;
+    color: #c9d1d9;
+    border-radius: 0;
+}
+
+menuitem:hover,
+.menuitem:hover {
+    background-color: #e3b341;
+    color: #0d1117;
+}
+
+/* Context menus */
+popover {
+    background-color: #161b22;
+    color: #c9d1d9;
+    border: 1px solid #30363d;
+    border-radius: 0;
+}
+
+/* Scrollbars */
+scrollbar slider {
+    background-color: #30363d;
+    border-radius: 0;
+}
+
+scrollbar slider:hover {
+    background-color: #e3b341;
+}
+
+/* Separators */
+separator {
+    background-color: #30363d;
+}
+
+/* Tooltips */
+tooltip {
+    background-color: #161b22;
+    color: #f0f6fc;
+    border: 1px solid #e3b341;
+    border-radius: 0;
+}
+
+@import url("file-dialogs.css");

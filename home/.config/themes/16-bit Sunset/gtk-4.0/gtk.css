@@ -1,0 +1,128 @@
+/* =========================================================
+   16-BIT SUNSET — GTK4 / Libadwaita
+   Pamac and GTK4 applications
+   ========================================================= */
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 11pt;
+}
+
+/* Main surfaces */
+window,
+.background,
+dialog {
+    background-color: #1e1b3a;
+    color: #f4dfb4;
+}
+
+/* Main content */
+view,
+list,
+listview,
+gridview,
+scrolledwindow {
+    background-color: #1e1b3a;
+    color: #f4dfb4;
+}
+
+/* Header bars */
+headerbar {
+    background-color: #292447;
+    color: #f4dfb4;
+    border-bottom: 2px solid #51406b;
+}
+
+headerbar button {
+    color: #f4dfb4;
+    border-radius: 0;
+}
+
+headerbar button:hover {
+    background-color: #51406b;
+    color: #e6b85c;
+}
+
+/* Buttons */
+button {
+    background-color: #292447;
+    color: #f4dfb4;
+    border: 2px solid #51406b;
+    border-radius: 0;
+}
+
+button:hover {
+    background-color: #51406b;
+    color: #e6b85c;
+}
+
+button:active,
+button:checked {
+    background-color: #d47755;
+    color: #1e1b3a;
+    border-color: #e6b85c;
+}
+
+/* Entries / search */
+entry {
+    background-color: #292447;
+    color: #f4dfb4;
+    border: 2px solid #51406b;
+    border-radius: 0;
+}
+
+entry:focus {
+    border-color: #e6b85c;
+}
+
+/* Lists / selections */
+row:selected,
+list row:selected,
+.navigation-sidebar row:selected {
+    background-color: #d47755;
+    color: #1e1b3a;
+}
+
+row:hover,
+list row:hover {
+    background-color: #51406b;
+}
+
+/* Scrollbars */
+scrollbar {
+    background-color: #1e1b3a;
+}
+
+scrollbar slider {
+    background-color: #51406b;
+    border-radius: 0;
+}
+
+scrollbar slider:hover {
+    background-color: #d47755;
+}
+
+/* Tooltips */
+tooltip {
+    background-color: #292447;
+    color: #f4dfb4;
+    border: 2px solid #51406b;
+    border-radius: 0;
+}
+
+/* Menus / popovers */
+popover,
+popover.background,
+.menu {
+    background-color: #292447;
+    color: #f4dfb4;
+    border: 2px solid #51406b;
+    border-radius: 0;
+}
+
+/* Focus */
+*:focus {
+    outline-color: #e6b85c;
+}
+
+@import url("file-dialogs.css");

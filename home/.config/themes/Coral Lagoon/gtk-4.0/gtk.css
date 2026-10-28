@@ -1,0 +1,136 @@
+/* =========================================================
+   CORAL LAGOON — GTK4 / Libadwaita
+   Pamac and GTK4 applications
+   ========================================================= */
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 11pt;
+}
+
+/* Main surfaces */
+window,
+.background,
+dialog {
+    background-color: #042235;
+    color: #e5f6ff;
+}
+
+/* Main content */
+view,
+list,
+listview,
+gridview,
+scrolledwindow {
+    background-color: #042235;
+    color: #e5f6ff;
+}
+
+/* Header bars */
+headerbar {
+    background-color: #062b40;
+    color: #e5f6ff;
+    border-bottom: 2px solid #6bbacb;
+}
+
+headerbar button {
+    color: #e5f6ff;
+    border-radius: 24px;
+}
+
+headerbar button:hover {
+    background-color: #6bbacb;
+    color: #cfb5ef;
+}
+
+/* Buttons */
+button {
+    background-color: #062b40;
+    color: #e5f6ff;
+    border: 2px solid #6bbacb;
+    border-radius: 24px;
+}
+
+button:hover {
+    background-color: #6bbacb;
+    color: #cfb5ef;
+}
+
+button:active,
+button:checked {
+    background-color: #efb957;
+    color: #042235;
+    border-color: #cfb5ef;
+}
+
+/* Entries / search */
+entry {
+    background-color: #062b40;
+    color: #e5f6ff;
+    border: 2px solid #6bbacb;
+    border-radius: 24px;
+}
+
+entry:focus {
+    border-color: #cfb5ef;
+}
+
+/* Lists / selections */
+row:selected,
+list row:selected,
+.navigation-sidebar row:selected {
+    background-color: #efb957;
+    color: #042235;
+}
+
+row:hover,
+list row:hover {
+    background-color: #6bbacb;
+}
+
+/* Scrollbars */
+scrollbar {
+    background-color: #042235;
+}
+
+scrollbar slider {
+    background-color: #6bbacb;
+    border-radius: 24px;
+}
+
+scrollbar slider:hover {
+    background-color: #efb957;
+}
+
+/* Tooltips */
+tooltip {
+    background-color: #062b40;
+    color: #e5f6ff;
+    border: 2px solid #6bbacb;
+    border-radius: 24px;
+}
+
+/* Menus / popovers */
+popover,
+popover.background,
+.menu {
+    background-color: #062b40;
+    color: #e5f6ff;
+    border: 2px solid #6bbacb;
+    border-radius: 24px;
+}
+
+/* Focus */
+*:focus {
+    outline-color: #cfb5ef;
+}
+
+@import url("file-dialogs.css");
+
+/* Coral Lagoon: bubble controls and lavender focus rings. */
+button, entry, spinbutton, combobox button { border-radius: 999px; padding-left: 14px; padding-right: 14px; }
+button:hover, entry:focus { border-color: #cfb5ef; }
+menu, popover, tooltip { border-radius: 28px; padding: 10px; }
+progressbar trough, progressbar progress, scale trough, scale highlight, scrollbar slider { border-radius: 999px; }
+progressbar progress, scale highlight { background-color: #efb957; }
+.sidebar row, .navigation-sidebar row { border-radius: 999px; margin: 3px 6px; }

@@ -1,0 +1,1 @@
+../../../../quickshell/components/UiButton.qml

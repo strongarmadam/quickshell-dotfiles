@@ -1,0 +1,4 @@
+#!/bin/bash
+set -euo pipefail
+config="$HOME/.config/themes/current/quickshell"
+exec quickshell ipc -p "$config" call desktop "${1:-launcher}"

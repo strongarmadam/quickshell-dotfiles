@@ -1,0 +1,160 @@
+/* ANNAPURNA RETRO — GTK3 / THUNAR */
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 12px;
+}
+
+/* Main window */
+window,
+window.background {
+    background-color: #071e35;
+    color: #e2f3ff;
+}
+
+/* Header / toolbar */
+headerbar,
+toolbar {
+    background-color: #10354d;
+    color: #f1faff;
+    border-bottom: 3px solid #ffffff;
+    box-shadow: none;
+}
+
+/* Toolbar buttons */
+toolbar button,
+headerbar button {
+    background-color: #10354d;
+    color: #e2f3ff;
+    border: 3px solid transparent;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+toolbar button:hover,
+headerbar button:hover {
+    background-color: #35647e;
+    color: #c5ee9a;
+    border-color: #ffffff;
+}
+
+/* Location / path bar */
+entry,
+.path-bar,
+.location-bar {
+    background-color: #071e35;
+    color: #f1faff;
+    border: 3px solid #ffffff;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+entry:focus {
+    border-color: #ffffff;
+}
+
+/* Sidebar */
+.thunar-side-pane,
+.sidebar {
+    background-color: #061a2b;
+    color: #cee8f5;
+    border-right: 3px solid #ffffff;
+}
+
+.thunar-side-pane row,
+.sidebar row {
+    background-color: transparent;
+    color: #cee8f5;
+    border-radius: 0;
+}
+
+.thunar-side-pane row:hover,
+.sidebar row:hover {
+    background-color: #10354d;
+    color: #c5ee9a;
+}
+
+.thunar-side-pane row:selected,
+.sidebar row:selected {
+    background-color: #9bd65b;
+    color: #071e35;
+}
+
+/* File view */
+.view,
+treeview,
+iconview {
+    background-color: #071e35;
+    color: #e2f3ff;
+}
+
+.view:selected,
+treeview:selected,
+iconview:selected {
+    background-color: #9bd65b;
+    color: #071e35;
+}
+
+/* File names */
+.view text,
+treeview {
+    color: #e2f3ff;
+}
+
+/* Menus */
+menu,
+.menu {
+    background-color: #10354d;
+    color: #e2f3ff;
+    border: 3px solid #ffffff;
+}
+
+menuitem,
+.menuitem {
+    background-color: transparent;
+    color: #e2f3ff;
+    border-radius: 0;
+}
+
+menuitem:hover,
+.menuitem:hover {
+    background-color: #9bd65b;
+    color: #071e35;
+}
+
+/* Context menus */
+popover {
+    background-color: #10354d;
+    color: #e2f3ff;
+    border: 3px solid #ffffff;
+    border-radius: 0;
+}
+
+/* Scrollbars */
+scrollbar slider {
+    background-color: #35647e;
+    border-radius: 0;
+}
+
+scrollbar slider:hover {
+    background-color: #9bd65b;
+}
+
+/* Separators */
+separator {
+    background-color: #35647e;
+}
+
+/* Tooltips */
+tooltip {
+    background-color: #10354d;
+    color: #f1faff;
+    border: 3px solid #ffffff;
+    border-radius: 0;
+}
+
+@import url("file-dialogs.css");
+
+/* Square retro controls throughout GTK. */
+* { border-radius: 0; }
+button, entry { border-width: 3px; }

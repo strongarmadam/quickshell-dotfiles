@@ -1,0 +1,13 @@
+[Unit]
+Description=Local clipboard history
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/wl-paste --watch %h/.local/bin/clipboard-history-store
+Restart=on-failure
+RestartSec=3
+UMask=0077
+
+[Install]
+WantedBy=graphical-session.target

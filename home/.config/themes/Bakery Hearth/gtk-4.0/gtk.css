@@ -1,0 +1,139 @@
+/* =========================================================
+   BAKERY HEARTH — GTK4 / Libadwaita
+   Pamac and GTK4 applications
+   ========================================================= */
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 11pt;
+}
+
+/* Main surfaces */
+window,
+.background,
+dialog {
+    background-color: #2b1b14;
+    color: #fce3c1;
+}
+
+/* Main content */
+view,
+list,
+listview,
+gridview,
+scrolledwindow {
+    background-color: #2b1b14;
+    color: #fce3c1;
+}
+
+/* Header bars */
+headerbar {
+    background-color: #5a3e2e;
+    color: #fce3c1;
+    border-bottom: 1px solid #a77b5b;
+}
+
+headerbar button {
+    color: #cfb28f;
+    border-radius: 8px;
+}
+
+headerbar button:hover {
+    background-color: #4c392d;
+    color: #dfb88e;
+}
+
+/* Buttons */
+button {
+    background-color: #5a3e2e;
+    color: #cfb28f;
+    border: 1px solid #a77b5b;
+    border-radius: 8px;
+}
+
+button:hover {
+    background-color: #4c392d;
+    color: #fce3c1;
+    border-color: #dfb88e;
+}
+
+button:active,
+button:checked {
+    background-color: #dfb88e;
+    color: #2b1b14;
+    border-color: #fce3c1;
+}
+
+/* Entries / search */
+entry {
+    background-color: #5a3e2e;
+    color: #fce3c1;
+    border: 1px solid #a77b5b;
+    border-radius: 8px;
+}
+
+entry:focus {
+    border-color: #dfb88e;
+}
+
+/* Lists / selections */
+row:selected,
+list row:selected,
+.navigation-sidebar row:selected {
+    background-color: #dfb88e;
+    color: #2b1b14;
+}
+
+row:hover,
+list row:hover {
+    background-color: #4c392d;
+}
+
+/* Scrollbars */
+scrollbar {
+    background-color: #2b1b14;
+}
+
+scrollbar slider {
+    background-color: #76543e;
+    border-radius: 8px;
+}
+
+scrollbar slider:hover {
+    background-color: #a77b5b;
+}
+
+/* Tooltips */
+tooltip {
+    background-color: #2b1b14;
+    color: #fce3c1;
+    border: 1px solid #a77b5b;
+    border-radius: 8px;
+}
+
+/* Menus / popovers */
+popover,
+popover.background,
+.menu {
+    background-color: #2b1b14;
+    color: #fce3c1;
+    border: 1px solid #a77b5b;
+    border-radius: 8px;
+}
+
+/* Focus */
+*:focus {
+    outline-color: #dfb88e;
+}
+
+@import url("file-dialogs.css");
+
+/* Board-shaped inputs, cookie-shaped actions. */
+headerbar { background-image: none; background-color: #5a3e2e; }
+entry, .path-bar button { border-radius: 4px; }
+button { border-radius: 14px; }
+button.suggested-action, button:checked, row:selected, .sidebar row:selected {
+    background-image: none;
+    background-color: #6d2636;
+    color: #fce3c1;
+}

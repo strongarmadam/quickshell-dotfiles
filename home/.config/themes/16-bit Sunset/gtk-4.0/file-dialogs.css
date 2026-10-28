@@ -1,0 +1,91 @@
+/* File chooser palette: 16-bit Sunset. */
+window.filechooser,
+filechooser {
+    background-image: none;
+    background-color: #1e1b3a;
+    color: #f4dfb4;
+}
+window.filechooser headerbar,
+window.filechooser .dialog-action-area,
+filechooser .sidebar,
+filechooser .places-sidebar,
+filechooser .navigation-sidebar {
+    background-image: none;
+    background-color: #292447;
+    color: #f4dfb4;
+}
+filechooser treeview,
+filechooser .view,
+filechooser list,
+filechooser listview,
+filechooser scrolledwindow {
+    background-image: none;
+    background-color: #1e1b3a;
+    color: #f4dfb4;
+}
+filechooser row,
+filechooser .sidebar row {
+    color: #f4dfb4;
+    border-radius: 0px;
+}
+filechooser row:hover {
+    background-image: none;
+    background-color: #292447;
+    color: #e6b85c;
+}
+filechooser row:selected,
+filechooser treeview:selected,
+filechooser .view:selected {
+    background-image: none;
+    background-color: #d47755;
+    color: #1e1b3a;
+}
+window.filechooser button,
+filechooser button,
+window.filechooser entry,
+filechooser entry {
+    background-image: none;
+    background-color: #292447;
+    color: #f4dfb4;
+    border: 2px solid #51406b;
+    border-radius: 0px;
+    box-shadow: none;
+}
+window.filechooser button:hover,
+filechooser button:hover,
+window.filechooser entry:focus,
+filechooser entry:focus {
+    border-color: #e6b85c;
+    color: #e6b85c;
+}
+window.filechooser button.suggested-action,
+window.filechooser button.suggested-action:backdrop,
+filechooser button:checked {
+    background-image: none;
+    background-color: #d47755;
+    color: #1e1b3a;
+    border-color: #e6b85c;
+}
+window.filechooser button.suggested-action:hover {
+    background-image: none;
+    background-color: #e6b85c;
+    color: #1e1b3a;
+}
+window.filechooser button:disabled,
+filechooser button:disabled {
+    color: #51406b;
+}
+filechooser entry selection {
+    background-image: none;
+    background-color: #d47755;
+    color: #1e1b3a;
+}
+filechooser scrollbar slider {
+    background-image: none;
+    background-color: #51406b;
+    border-radius: 0px;
+}
+filechooser scrollbar slider:hover {
+    background-image: none;
+    background-color: #d47755;
+}

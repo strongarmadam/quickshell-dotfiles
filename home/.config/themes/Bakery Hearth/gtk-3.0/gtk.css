@@ -1,0 +1,233 @@
+/* =========================================================
+   BAKERY HEARTH — GTK3
+   Thunar / GTK applications
+   ========================================================= */
+
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 11pt;
+}
+
+/* ---------------------------------------------------------
+   Main surfaces
+   --------------------------------------------------------- */
+
+window,
+.background {
+    background-color: #2b1b14;
+    color: #fce3c1;
+}
+
+.view,
+.view text,
+.view treeview,
+treeview.view,
+iconview {
+    background-color: #2b1b14;
+    color: #fce3c1;
+}
+
+/* ---------------------------------------------------------
+   Sidebar
+   --------------------------------------------------------- */
+
+.sidebar,
+.thunar-side-pane {
+    background-color: #1d1511;
+    color: #cfb28f;
+}
+
+.sidebar row,
+.thunar-side-pane row {
+    border-radius: 9px;
+    padding: 4px 6px;
+    background-color: transparent;
+    color: #cfb28f;
+}
+
+.sidebar row:hover,
+.thunar-side-pane row:hover {
+    background-color: #5a3e2e;
+    color: #fce3c1;
+}
+
+.sidebar row:selected,
+.thunar-side-pane row:selected {
+    background-color: #dfb88e;
+    color: #2b1b14;
+}
+
+/* ---------------------------------------------------------
+   File view
+   --------------------------------------------------------- */
+
+.view:hover {
+    background-color: #2b2019;
+}
+
+.view:selected,
+.view:selected:focus,
+treeview:selected,
+iconview:selected {
+    background-color: #dfb88e;
+    color: #2b1b14;
+}
+
+/* ---------------------------------------------------------
+   Toolbar / header
+   --------------------------------------------------------- */
+
+toolbar,
+headerbar {
+    background-color: #5a3e2e;
+    color: #fce3c1;
+    border-bottom: 1px solid #76543e;
+    box-shadow: none;
+}
+
+toolbar button,
+headerbar button {
+    background-color: transparent;
+    color: #cfb28f;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    box-shadow: none;
+}
+
+toolbar button:hover,
+headerbar button:hover {
+    background-color: #3b2c22;
+    color: #dfb88e;
+    border-color: #76543e;
+}
+
+toolbar button:active,
+headerbar button:active {
+    background-color: #76543e;
+    color: #fce3c1;
+}
+
+/* ---------------------------------------------------------
+   Path / location bar
+   --------------------------------------------------------- */
+
+entry,
+.path-bar,
+.path-bar button,
+.location-bar {
+    background-color: #2b2019;
+    color: #fce3c1;
+    border: 1px solid #76543e;
+    border-radius: 9px;
+    box-shadow: none;
+}
+
+entry:focus,
+.path-bar:focus {
+    border-color: #dfb88e;
+}
+
+/* ---------------------------------------------------------
+   Buttons
+   --------------------------------------------------------- */
+
+button {
+    background-color: #5a3e2e;
+    color: #cfb28f;
+    border: 1px solid #76543e;
+    border-radius: 8px;
+    box-shadow: none;
+}
+
+button:hover {
+    background-color: #3b2c22;
+    color: #dfb88e;
+    border-color: #a77b5b;
+}
+
+button:active,
+button:checked {
+    background-color: #dfb88e;
+    color: #2b1b14;
+}
+
+/* ---------------------------------------------------------
+   Menus / context menus
+   --------------------------------------------------------- */
+
+menu,
+.menu,
+popover {
+    background-color: #5a3e2e;
+    color: #fce3c1;
+    border: 1px solid #76543e;
+    border-radius: 10px;
+}
+
+menuitem,
+.menuitem {
+    color: #fce3c1;
+    border-radius: 7px;
+}
+
+menuitem:hover,
+.menuitem:hover {
+    background-color: #76543e;
+    color: #fce3c1;
+}
+
+/* ---------------------------------------------------------
+   Scrollbars
+   --------------------------------------------------------- */
+
+scrollbar {
+    background-color: #1d1511;
+}
+
+scrollbar slider {
+    background-color: #76543e;
+    border-radius: 8px;
+}
+
+scrollbar slider:hover {
+    background-color: #a77b5b;
+}
+
+/* ---------------------------------------------------------
+   Separators
+   --------------------------------------------------------- */
+
+separator {
+    background-color: #76543e;
+}
+
+/* ---------------------------------------------------------
+   Tooltips
+   --------------------------------------------------------- */
+
+tooltip {
+    background-color: #5a3e2e;
+    color: #fce3c1;
+    border: 1px solid #a77b5b;
+    border-radius: 9px;
+}
+
+/* ---------------------------------------------------------
+   Selection / focus
+   --------------------------------------------------------- */
+
+*:focus {
+    outline-color: #dfb88e;
+}
+
+@import url("file-dialogs.css");
+
+/* Board-shaped inputs, cookie-shaped actions. */
+headerbar { background-image: none; background-color: #5a3e2e; }
+entry, .path-bar button { border-radius: 4px; }
+button { border-radius: 14px; }
+button.suggested-action, button:checked, row:selected, .sidebar row:selected {
+    background-image: none;
+    background-color: #6d2636;
+    color: #fce3c1;
+}

@@ -1,0 +1,176 @@
+# Else exist specifically for clang
+ifeq ($(CXX),g++)
+    EXTRA_FLAGS = --no-gnu-unique
+else
+    EXTRA_FLAGS =
+endif
+
+# --- Versioning -----------------------------------------------------------
+# The VERSION file is the single source of truth (see scripts/version.sh).
+# VERSION_BASE is the release version used for tagging/checks; VERSION is what
+# gets baked into the binary (adds a -dev marker for non-release builds).
+VERSION_FILE := VERSION
+VERSION_BASE := $(shell sh scripts/version.sh --base)
+VERSION      := $(shell sh scripts/version.sh)
+VERSION_REGEX := ^v[0-9]+\.[0-9]+\.[0-9]+(\+[0-9]+)?$$
+VERSION_DEFINE := -DHYPREXPO_VERSION='"$(VERSION)"'
+
+CXXFLAGS = -shared -fPIC -g -std=c++2b -Wno-c++11-narrowing -Wno-narrowing
+LUA_PKG_CONFIG ?= $(shell if pkg-config --exists lua5.4; then printf 'lua5.4'; elif pkg-config --exists lua; then printf 'lua'; else printf 'lua5.4'; fi)
+PKG_CONFIG_DEPS = pixman-1 libdrm hyprland pangocairo libinput libudev wayland-server xkbcommon $(LUA_PKG_CONFIG)
+LINK_DEPS = pangocairo xkbcommon $(LUA_PKG_CONFIG)
+INCLUDES = $(shell pkg-config --cflags $(PKG_CONFIG_DEPS))
+LIBS = $(shell pkg-config --libs $(LINK_DEPS))
+
+SRC = src/main.cpp src/Dispatchers.cpp src/PluginConfig.cpp src/IOverviewSession.cpp src/Overview.cpp src/OverviewInteraction.cpp src/OverviewRender.cpp src/OverviewCapture.cpp src/ScrollingOverview.cpp src/ScrollingInputState.cpp src/ExpoGesture.cpp src/OverviewPassElement.cpp src/HyprexpoLogic.cpp src/ScrollingOverviewLogic.cpp src/ScrollingMutationTransaction.cpp src/ScrollingLayoutAdapter.cpp src/ScrollingDiagnostics.cpp
+HEADERS = src/globals.hpp src/Dispatchers.hpp src/PluginConfig.hpp src/HyprlandConfigCompat.hpp src/IOverviewSession.hpp src/Overview.hpp src/OverviewInternal.hpp src/OverviewCapture.hpp src/ScrollingOverview.hpp src/ScrollingInputState.hpp src/ScrollingRequestId.hpp src/ExpoGesture.hpp src/OverviewPassElement.hpp src/HyprexpoConfig.hpp src/HyprexpoLogic.hpp src/ScrollingOverviewLogic.hpp src/ScrollingMutationTransaction.hpp src/ScrollingLayoutAdapter.hpp src/ScrollingDiagnostics.hpp
+HEADERS += src/PreviewFramebuffer.hpp
+TARGET = hyprexpo.so
+TEST_TARGET = HyprexpoLogicTests
+SOURCE_TEST_TARGET = OverviewSourceTests
+FRAMEBUFFER_TEST_TARGET = PreviewFramebufferTests
+REGISTRY_TEST_TARGET = RegistryTeardownTests
+INPUT_ORACLE_TARGET = ScrollingInputOracle
+INSTALL_USER ?= $(if $(SUDO_USER),$(SUDO_USER),$(USER))
+INSTALL_DIR ?= /var/cache/hyprpm/$(INSTALL_USER)/hyprexpo
+INSTALL_NAME = hyprexpo.so
+XDG_CACHE_HOME ?= $(HOME)/.cache
+DEV_DIR ?= $(XDG_CACHE_HOME)/hyprexpo
+DEV_TARGET ?= $(DEV_DIR)/$(INSTALL_NAME)
+COMPILE_PLUGIN = $(CXX) $(CXXFLAGS) $(EXTRA_FLAGS) $(VERSION_DEFINE) $(INCLUDES) $(SRC) -o $@ $(LIBS)
+
+all: $(TARGET)
+
+# Rebuild when the version changes so the baked-in value stays correct.
+$(TARGET): $(SRC) $(HEADERS) $(VERSION_FILE)
+	$(COMPILE_PLUGIN)
+
+$(DEV_TARGET): $(SRC) $(HEADERS) $(VERSION_FILE)
+	@mkdir -p "$(dir $@)"
+	$(COMPILE_PLUGIN)
+
+dev-build: $(DEV_TARGET)
+
+dev-load: dev-build
+	@so="$$(readlink -f "$(DEV_TARGET)")"; \
+	echo "loading $$so"; \
+	hyprctl plugin load "$$so"
+
+dev-reload: dev-build
+	@so="$$(readlink -f "$(DEV_TARGET)")"; \
+	echo "reloading $$so"; \
+	hyprctl plugin unload "$$so" >/dev/null 2>&1 || true; \
+	hyprctl plugin load "$$so"
+
+dev-nested:
+	./scripts/run-nested.sh
+
+check-hyprpm-state:
+	@python3 scripts/check-hyprpm-state.py "$(INSTALL_DIR)/state.toml"
+
+install: check-hyprpm-state $(TARGET)
+	@echo "Installing for $(INSTALL_USER) into $(INSTALL_DIR)/$(INSTALL_NAME)"
+	install -Dm755 "$(TARGET)" "$(INSTALL_DIR)/$(INSTALL_NAME)"
+
+clean:
+	rm -f ./$(TARGET) ./$(TEST_TARGET) ./$(SOURCE_TEST_TARGET) ./$(FRAMEBUFFER_TEST_TARGET) ./$(REGISTRY_TEST_TARGET) ./$(INPUT_ORACLE_TARGET)
+
+test: $(TEST_TARGET) $(SOURCE_TEST_TARGET) $(FRAMEBUFFER_TEST_TARGET) $(REGISTRY_TEST_TARGET)
+	./$(TEST_TARGET)
+	./$(SOURCE_TEST_TARGET)
+	./$(FRAMEBUFFER_TEST_TARGET)
+	./$(REGISTRY_TEST_TARGET)
+
+test-tooling:
+	python3 -m unittest discover -s tests -p 'test_*.py' -v
+
+$(TEST_TARGET): src/HyprexpoLogic.cpp src/HyprexpoLogic.hpp src/HyprexpoConfig.hpp src/ScrollingOverviewLogic.cpp src/ScrollingOverviewLogic.hpp src/ScrollingInputState.cpp src/ScrollingInputState.hpp src/ScrollingRequestId.hpp src/ScrollingMutationTransaction.cpp src/ScrollingMutationTransaction.hpp tests/HyprexpoLogicTests.cpp
+	$(CXX) -std=c++2b -Wall -Wextra -Werror src/HyprexpoLogic.cpp src/ScrollingOverviewLogic.cpp src/ScrollingInputState.cpp src/ScrollingMutationTransaction.cpp tests/HyprexpoLogicTests.cpp -o $@
+
+$(SOURCE_TEST_TARGET): tests/OverviewSourceTests.cpp src/IOverviewSession.hpp src/IOverviewSession.cpp src/Overview.cpp src/OverviewRender.cpp src/OverviewCapture.hpp src/OverviewCapture.cpp src/ScrollingOverview.hpp src/ScrollingOverview.cpp src/ScrollingInputState.hpp src/ScrollingInputState.cpp src/ScrollingMutationTransaction.hpp src/ScrollingMutationTransaction.cpp src/Dispatchers.cpp src/main.cpp src/ScrollingLayoutAdapter.cpp src/ScrollingDiagnostics.cpp scripts/read-scrolling-diagnostic.sh scripts/inject-scrolling-input.sh
+	$(CXX) -std=c++2b -Wall -Wextra -Werror tests/OverviewSourceTests.cpp -o $@
+
+$(REGISTRY_TEST_TARGET): tests/RegistryTeardownTests.cpp
+	$(CXX) -std=c++2b -Wall -Wextra -Werror tests/RegistryTeardownTests.cpp -o $@
+$(FRAMEBUFFER_TEST_TARGET): tests/PreviewFramebufferTests.cpp src/PreviewFramebuffer.hpp
+	$(CXX) -std=c++2b -Wall -Wextra -Werror tests/PreviewFramebufferTests.cpp -o $@
+$(INPUT_ORACLE_TARGET): src/HyprexpoLogic.cpp src/HyprexpoLogic.hpp src/ScrollingOverviewLogic.cpp src/ScrollingOverviewLogic.hpp src/ScrollingInputState.cpp src/ScrollingInputState.hpp src/ScrollingRequestId.hpp tests/ScrollingInputOracle.cpp
+	$(CXX) -std=c++2b -Wall -Wextra -Werror src/HyprexpoLogic.cpp src/ScrollingOverviewLogic.cpp src/ScrollingInputState.cpp tests/ScrollingInputOracle.cpp -o $@
+
+# --- Release ceremony -----------------------------------------------------
+# 1. make check-pins          verify hyprpm pins are on the release history
+# 2. make version vX.Y.Z+N   set + commit the VERSION file
+# 3. make tag                create the matching annotated git tag
+# 4. make publish            push branch + tag (triggers the release workflow)
+
+# Support positional syntax: `make version v0.55.2+2`.
+# Turn the trailing word(s) into no-op goals so make doesn't error on them.
+ifeq (version,$(firstword $(MAKECMDGOALS)))
+  VERSION_ARG := $(strip $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS)))
+  ifneq ($(VERSION_ARG),)
+    $(eval $(VERSION_ARG):;@:)
+  endif
+endif
+# Also accept `make version v=v0.55.2+2`.
+SET_VERSION := $(if $(VERSION_ARG),$(VERSION_ARG),$(v))
+
+version:
+	@set -e; \
+	if [ -z '$(SET_VERSION)' ]; then \
+		printf '%s\n' '$(VERSION)'; \
+	else \
+		printf '%s' '$(SET_VERSION)' | grep -Eq '$(VERSION_REGEX)' \
+			|| { echo "error: '$(SET_VERSION)' must look like v1.2.3 or v1.2.3+4"; exit 1; }; \
+		if [ -n "$$(git status --porcelain -- hyprpm.toml)" ]; then \
+			echo "error: hyprpm.toml has uncommitted changes; commit the landed pin first"; exit 1; fi; \
+		./scripts/check-commit-pins.sh HEAD; \
+		printf '%s\n' '$(SET_VERSION)' > $(VERSION_FILE); \
+		git add $(VERSION_FILE); \
+		git commit -m 'release $(SET_VERSION)' -- $(VERSION_FILE); \
+		echo "VERSION -> $(SET_VERSION) (committed). next: make tag && make publish"; \
+	fi
+
+tag:
+	@set -e; \
+	v='$(VERSION_BASE)'; \
+	printf '%s' "$$v" | grep -Eq '$(VERSION_REGEX)' \
+		|| { echo "error: VERSION file '$$v' must look like v1.2.3 or v1.2.3+4"; exit 1; }; \
+	if [ -n "$$(git status --porcelain -- $(VERSION_FILE))" ]; then \
+		echo "error: $(VERSION_FILE) has uncommitted changes; run 'make version ...' first"; exit 1; fi; \
+	if [ -n "$$(git status --porcelain -- hyprpm.toml)" ]; then \
+		echo "error: hyprpm.toml has uncommitted changes; commit the landed pin first"; exit 1; fi; \
+	./scripts/check-commit-pins.sh HEAD; \
+	if git rev-parse -q --verify "refs/tags/$$v" >/dev/null; then \
+		echo "error: tag $$v already exists"; exit 1; fi; \
+	git tag -a "$$v" -m "$$v"; \
+	echo "created tag $$v. next: make publish"
+
+publish:
+	@set -e; \
+	v='$(VERSION_BASE)'; \
+	if ! git rev-parse -q --verify "refs/tags/$$v" >/dev/null; then \
+		echo "error: tag $$v does not exist; run 'make tag' first"; exit 1; fi; \
+	./scripts/check-commit-pins.sh "$$v"; \
+	git push origin HEAD; \
+	git push origin "$$v"; \
+	echo "pushed branch + tag $$v; the release workflow will build and publish."
+
+# Verify the plugin-side hash in every hyprpm commit pin is part of the release
+# history. Pass REF= to inspect a committed tree or tag; the working tree is
+# checked by default.
+check-pins:
+	@./scripts/check-commit-pins.sh '$(REF)'
+
+# Used by CI to guarantee the VERSION file matches the tag being released.
+# Pass the tag via TAG=, otherwise the exact tag on HEAD is used.
+check-version:
+	@file_ver='$(VERSION_BASE)'; \
+	tag_ver="$${TAG:-$$(git describe --tags --exact-match 2>/dev/null || true)}"; \
+	echo "VERSION file: $$file_ver"; \
+	echo "git tag:      $$tag_ver"; \
+	[ -n "$$tag_ver" ] || { echo "error: no exact tag on HEAD (set TAG=...)"; exit 1; }; \
+	[ "$$file_ver" = "$$tag_ver" ] \
+		|| { echo "::error::VERSION ($$file_ver) does not match tag ($$tag_ver)"; exit 1; }; \
+	echo "version aligned: $$file_ver"
+
+.PHONY: all clean install test test-tooling dev-build dev-load dev-reload dev-nested version tag publish check-pins check-version check-hyprpm-state

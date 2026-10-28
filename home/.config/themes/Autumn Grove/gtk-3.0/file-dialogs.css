@@ -1,0 +1,92 @@
+/* File chooser palette: Autumn Grove. */
+dialog,
+filechooser {
+    background-image: none;
+    background-color: #241b16;
+    color: #e5d8bd;
+}
+dialog headerbar,
+dialog .dialog-action-area,
+filechooser .sidebar,
+filechooser .places-sidebar,
+filechooser .navigation-sidebar {
+    background-image: none;
+    background-color: #30231c;
+    color: #e5d8bd;
+}
+filechooser treeview,
+filechooser .view,
+filechooser list,
+filechooser listview,
+filechooser scrolledwindow {
+    background-image: none;
+    background-color: #241b16;
+    color: #e5d8bd;
+}
+filechooser row,
+filechooser .sidebar row {
+    color: #e5d8bd;
+    border-radius: 12px;
+}
+filechooser row:hover {
+    background-image: none;
+    background-color: #30231c;
+    color: #b8a789;
+}
+filechooser row:selected,
+filechooser treeview:selected,
+filechooser .view:selected {
+    background-image: none;
+    background-color: #c59b62;
+    color: #241b16;
+}
+dialog button,
+filechooser button,
+dialog entry,
+filechooser entry {
+    background-image: none;
+    background-color: #30231c;
+    color: #e5d8bd;
+    border: 1px solid #a89270;
+    border-radius: 12px;
+    box-shadow: none;
+}
+dialog button:hover,
+filechooser button:hover,
+dialog entry:focus,
+filechooser entry:focus {
+    border-color: #b8a789;
+    color: #b8a789;
+}
+dialog button.suggested-action,
+dialog button.suggested-action:backdrop,
+filechooser button:checked {
+    background-image: none;
+    background-color: #c59b62;
+    color: #241b16;
+    border-color: #b8a789;
+}
+dialog button.suggested-action:hover {
+    background-image: none;
+    background-color: #b8a789;
+    color: #241b16;
+}
+dialog button:disabled,
+filechooser button:disabled {
+    color: #a89270;
+}
+dialog entry selection,
+filechooser entry selection {
+    background-image: none;
+    background-color: #c59b62;
+    color: #241b16;
+}
+filechooser scrollbar slider {
+    background-image: none;
+    background-color: #a89270;
+    border-radius: 12px;
+}
+filechooser scrollbar slider:hover {
+    background-image: none;
+    background-color: #c59b62;
+}

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+if ! command -v hyprlock >/dev/null 2>&1; then
+    notify-send -u critical 'Lock unavailable' 'Install hyprlock to enable session locking.'
+    exit 1
+fi
+exec 9>"${XDG_RUNTIME_DIR:?}/desktop-lock.lock"
+flock -n 9 || exit 0
+hyprlock --config "$HOME/.config/hypr/hyprlock.conf" --grace 0

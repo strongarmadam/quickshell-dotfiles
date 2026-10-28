@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Quickshell Settings
+Comment=Adjust desktop widgets, themes, and layout
+Exec="@HOME@/.local/bin/quickshell-settings"
+Icon=preferences-desktop
+Terminal=false
+Categories=Settings;DesktopSettings;

@@ -1,0 +1,7 @@
+#!/bin/bash
+set -euo pipefail
+config="$HOME/.config/quickshell/keybindings"
+if quickshell ipc -p "$config" call keybindings toggle 2>/dev/null; then
+    exit 0
+fi
+exec quickshell -n -p "$config"

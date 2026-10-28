@@ -1,0 +1,33 @@
+#!/usr/bin/env python3
+"""Check installed desktop prerequisites without changing the session."""
+import json
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+
+home = Path.home()
+issues = []
+def check(label, ok, repair):
+    print(('OK   ' if ok else 'FAIL ') + label + ('' if ok else ': ' + repair))
+    if not ok: issues.append(label)
+for command in ('Hyprland', 'quickshell', 'hyprlock', 'python3', 'magick', 'nmcli', 'bluetoothctl', 'wpctl', 'pactl', 'parec', 'cliphist', 'pavucontrol', 'wl-copy', 'wl-paste', 'grim', 'slurp', 'jq', 'brightnessctl', 'playerctl', 'notify-send', 'fc-list'):
+    check(command, bool(shutil.which(command)), 'install the runtime dependencies listed in README.md')
+for rel in ('.config/themes/current/quickshell/shell.qml', '.config/hypr/theme.lua', '.config/hypr/apps.lua', '.config/systemd/user/quickshell-desktop.service'):
+    check(rel, (home / rel).is_file(), 'rerun setup.py')
+try:
+    apps = json.loads((home / '.config/desktop-apps.json').read_text())
+    prefix = apps['terminal'] + apps['terminal_exec']
+    for role, argv in apps.items():
+        if role == 'terminal_exec': continue
+        check('Selected ' + role, bool(shutil.which(argv[0])), 'install ' + argv[0] + ' or change desktop-apps.json')
+        if argv[:len(prefix)] == prefix and len(argv) > len(prefix):
+            check(role + ' terminal app', bool(shutil.which(argv[len(prefix)])), 'install ' + argv[len(prefix)])
+except (OSError, ValueError, KeyError, IndexError):
+    check('Application choices', False, 'rerun setup.py')
+helper = home / '.local/bin/desktop-overview'
+result = subprocess.run([str(helper), '--check'], capture_output=True) if helper.is_file() else None
+if '--skip-overview' not in sys.argv:
+    check('Workspace overview', result is not None and result.returncode == 0, '~/.local/bin/desktop-overview --build, then log out and back in')
+print('Session-independent checks only; test networking, Bluetooth, audio, locking, and theme switching after login.')
+sys.exit(bool(issues))

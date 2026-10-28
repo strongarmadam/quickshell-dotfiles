@@ -1,0 +1,19 @@
+#!/bin/bash
+set -euo pipefail
+selector="$HOME/.config/quickshell/theme-selector"
+python3 - "$selector/ThemeData.qml" <<'PY'
+from pathlib import Path
+import json, sys
+base=Path.home()/'.config/themes'
+current=(base/'current').resolve()
+entries=[]
+for theme in sorted(base.iterdir(),key=lambda t:t.name.casefold()):
+    if theme.is_symlink() or not (theme/'quickshell/shell.qml').is_file():
+        continue
+    wallpaper=next((theme/name for name in ['wallpaper.png','wallpaper.jpg'] if (theme/name).is_file()),None)
+    if wallpaper:
+        entries.append(dict(name=theme.name,wallpaper=wallpaper.as_uri(),current=theme.resolve()==current))
+initial=next((i for i,t in enumerate(entries) if t['current']),0)
+Path(sys.argv[1]).write_text('import QtQuick\nQtObject {\n    readonly property var entries: '+json.dumps(entries)+'\n    readonly property int initialIndex: '+str(initial)+'\n}\n')
+PY
+exec quickshell --no-duplicate --daemonize -p "$selector"

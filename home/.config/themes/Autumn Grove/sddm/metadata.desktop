@@ -1,0 +1,12 @@
+[SddmGreeterTheme]
+Name=Autumn Grove
+Description=Compact translucent Autumn Grove login screen
+Type=sddm-theme
+Author=Adam
+License=MIT
+Version=2.0
+MainScript=Main.qml
+ConfigFile=theme.conf
+Theme-Id=autumn-grove
+Theme-API=2.0
+QtVersion=6
