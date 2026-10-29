@@ -14,7 +14,6 @@ networkmanager wpa_supplicant bluez bluez-utils upower
 wl-clipboard cliphist grim slurp jq brightnessctl playerctl libnotify pavucontrol
 imagemagick fontconfig ttf-jetbrains-mono-nerd adwaita-icon-theme
 gtk3 gtk4 xdg-desktop-portal-hyprland xdg-desktop-portal-gtk nano'''.split()
-BUILD = ['base-devel', 'clang', 'pkgconf']
 APP_PACKAGES = {name: name for name in ('firefox', 'chromium', 'kitty', 'foot', 'alacritty', 'yazi', 'btop', 'thunar', 'dolphin', 'gnome-terminal', 'konsole', 'htop')}
 
 def selected_programs(c):
@@ -30,7 +29,6 @@ def selected_programs(c):
 
 def package_plan(actions, c):
     packages = CORE.copy()
-    if actions.get('overview'): packages += BUILD
     if actions.get('login'): packages += ['sddm', 'sudo']
     if actions.get('apps'): packages += [APP_PACKAGES[p] for p in sorted(selected_programs(c)) if p in APP_PACKAGES]
     return sorted(set(packages))
@@ -42,7 +40,7 @@ def choose_actions(args, home):
         print('Non-Arch system: using files-only setup. See README for dependencies.')
         return {}
     actions = {}
-    for key, label in [('packages', 'Install/update desktop dependencies with pacman'), ('apps', 'Install supported apps you selected'), ('overview', 'Build the workspace overview for this Hyprland'), ('services', 'Enable NetworkManager, Bluetooth, and user audio services'), ('login', 'Install matching SDDM login themes and enable SDDM at next boot')]:
+    for key, label in [('packages', 'Install/update desktop dependencies with pacman'), ('apps', 'Install supported apps you selected'), ('services', 'Enable NetworkManager, Bluetooth, and user audio services'), ('login', 'Install matching SDDM login themes and enable SDDM at next boot')]:
         actions[key] = args.full or input(label + '? [Y/n]: ').strip().lower() not in ('n', 'no')
     if actions['apps'] and not actions['packages']:
         print('App installation skipped because package installation was declined.')
@@ -93,8 +91,6 @@ def run_actions(root, home, c, actions):
         if not step('Dependencies', ['sudo', 'pacman', '-Syu', '--needed', *package_plan(actions, c)], interactive=True):
             record('Stopped system setup after package failure. Fix pacman, then rerun setup. Log: ' + str(log))
             return False
-    if actions.get('overview'):
-        step('Workspace overview', [str(home / '.local/bin/desktop-overview'), '--build'])
     step('Wallpaper assets', [str(home / '.local/bin/desktop-wallpaper'), '--prepare'])
     step('User service definitions', ['systemctl', '--user', 'daemon-reload'])
     if actions.get('services'):
@@ -117,6 +113,6 @@ def run_actions(root, home, c, actions):
                     step('Graphical login on boot', ['sudo', 'systemctl', 'set-default', 'graphical.target'])
             else:
                 failures.append('SDDM'); record('Existing display manager retained; SDDM not enabled.')
-    step('Desktop diagnostics', [str(home / '.local/bin/desktop-doctor'), *([] if actions.get('overview') else ['--skip-overview'])])
+    step('Desktop diagnostics', [str(home / '.local/bin/desktop-doctor')])
     record(('Setup needs attention: ' + ', '.join(failures) if failures else 'Selected setup steps completed. Reboot to start enabled system services.') + '\nLog: ' + str(log))
     return not failures

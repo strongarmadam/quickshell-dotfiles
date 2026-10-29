@@ -89,11 +89,6 @@ def plan(home,c):
             try:data=data.decode().replace('@HOME@',str(home)).encode()
             except UnicodeError:pass
             result[rel]=('file',data,p.stat().st_mode&0o777)
-    # Keep rebuildable source after the downloaded repository is removed.
-    for source in sorted((ROOT/'extras/hyprexpo').rglob('*')):
-        if source.is_file() and source.suffix not in ('.so','.o','.pyc') and '__pycache__' not in source.parts:
-            rel='.local/share/quickshell-dotfiles/overview-source/'+str(source.relative_to(ROOT/'extras/hyprexpo'))
-            result[rel]=('file',source.read_bytes(),source.stat().st_mode&0o777)
     def put(rel,data):result[rel]=('file',data.encode(),0o644)
     apps={key:shlex.split(c[key]) for key in ('browser','terminal','terminal_exec','files','monitor')}
     binds=[]
@@ -160,7 +155,7 @@ def main():
     p.add_argument('--config',type=Path,help='JSON choices; see examples/choices.json')
     p.add_argument('--dry-run',action='store_true',help='Preview without writing files')
     p.add_argument('--yes',action='store_true',help='Use supplied/default choices without interactive prompts')
-    p.add_argument('--full',action='store_true',help='Install dependencies, build overview, configure services and SDDM (Arch, current user only)')
+    p.add_argument('--full',action='store_true',help='Install dependencies, configure services and SDDM (Arch, current user only)')
     p.add_argument('--files-only',action='store_true',help='Copy configuration without system integration')
     p.add_argument('--restore',type=Path,help='Restore an installation backup, preserving files changed afterward')
     args=p.parse_args();home=args.target_home.expanduser().resolve()

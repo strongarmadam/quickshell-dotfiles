@@ -20,7 +20,7 @@ and machine-specific monitor settings are excluded.
 - Theme Creator: wallpaper, colors, highlights, outlines, shapes, fonts, window
   effects, GTK, Kitty, and ANSI colors. Existing themes are protected from overwrite.
 - Theme-aware GTK/Kitty styling, session-lock configuration, and SDDM theme assets.
-- Source for the customized workspace-overview plugin, built locally by the setup wizard by default.
+- Standalone Quickshell workspace overview: live previews, icon/title fallback, keyboard navigation, and a centered final row. No native plugin build.
 
 | Moonlit Forest | Rivendell | 16-Bit Sunset |
 | --- | --- | --- |
@@ -30,7 +30,7 @@ These images show screenshots of an installed desktop.
 
 ## Requirements
 
-The source machine used **Hyprland 0.56.2**, **Quickshell 0.3.2**, **Qt 6.12**,
+The source machine used **Hyprland 0.57.0**, **Quickshell 0.3.2**, **Qt 6.12**,
 on Arch Linux. The compositor configuration uses the
 [Hyprland Lua API](https://wiki.hypr.land/configuring/core/); it is not a legacy
 `hyprland.conf` setup. Quickshell is the [QtQuick desktop toolkit](https://quickshell.org/).
@@ -74,7 +74,7 @@ python3 setup.py
 The wizard asks for app commands and launch shortcuts, initial theme, keyboard
 layout, display scale, clipboard history, media-widget visibility, and additional
 app shortcuts. It then offers dependency installation, selected app installation,
-a local overview build, NetworkManager/Bluetooth/audio enablement, and matching SDDM
+NetworkManager/Bluetooth/audio enablement, and matching SDDM
 login themes. Review the printed plan before confirming. System steps use sudo;
 pacman retains its normal transaction confirmation. Commands support arguments using normal shell-style quoting, but
 are executed as argument lists: shell pipes, redirects, and command substitutions
@@ -103,7 +103,7 @@ python3 setup.py --files-only
 packages and services. `--target-home` stages files only; it cannot be combined
 with `--full`. You can preview full setup with `--full --yes --dry-run`.
 
-Setup copies the curated configuration and overview source, expands home paths,
+Setup copies the curated configuration and standalone overview, expands home paths,
 creates relative links, and backs up replaced files under
 `~/.local/state/quickshell-dotfiles/backups/`. Unrelated files are retained.
 The wizard never restarts your session or system services. Enabled services take
@@ -115,8 +115,8 @@ Do not run it against your working source desktop merely to export it.
 
 Failures produce a nonzero exit status and a log under
 `~/.local/state/quickshell-dotfiles/setup-*.log`. Fix the reported issue and rerun.
-A failed overview build leaves the base desktop usable; Super+W explains how to
-rebuild. Build tools (`base-devel`, `clang`, `pkgconf`) are added when selected.
+The overview runs only while open. Unavailable window capture falls back to
+application icons and titles; no compiler or matching Hyprland headers are needed.
 
 After installation:
 
@@ -174,7 +174,7 @@ history nor media metadata is part of this repository.
 | Super + F / V | Fullscreen / floating |
 | Super + left/right mouse drag | Move / resize window; left drag also moves widgets |
 | Super + Shift + Escape | Immediate system power-off |
-| Super + W | Workspace overview; built during full setup |
+| Super + W | Workspace overview; included in files-only setup too |
 
 The close-app helper sends a normal close request, waits, then terminates the
 process if it has no mapped windows left (for applications that otherwise hide
@@ -203,10 +203,10 @@ is not a merge tool for edits made to installed theme/config files.
 
 ## Extra components
 
-- **Workspace overview:** see [extras/README.md](extras/README.md). No compiled
-  plugin is shipped; the wizard builds it for the installed Hyprland. A stale
-  or modified binary is skipped. Rebuild with `~/.local/bin/desktop-overview --build`
-  after compositor/dependency upgrades, then log out and back in.
+- **Workspace overview:** [usage and maintenance](home/.config/quickshell/overview/README.md).
+  Five numbered workspaces by default, expanding as needed; incomplete last rows
+  are centered. Uses public IPC and Wayland capture, with no plugin ABI dependency.
+  Future public API changes may still need adapter updates.
 - **Login themes:** offered in the wizard. To add them later, run:
 
   ```sh

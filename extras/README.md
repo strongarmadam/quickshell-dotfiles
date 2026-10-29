@@ -1,31 +1,8 @@
-# Workspace overview source
+# Legacy overview source
 
-`hyprexpo/` contains the source snapshot for this desktop's customized overview,
-including its blurred theme backdrop. No compiled plugin is distributed.
+`hyprexpo/` is retained as historical source for the former native plugin.
+It is not installed, built, or loaded by the current setup. It targets Hyprland
+0.56 and does not compile against 0.57 without a substantial port.
 
-The interactive wizard offers to build it by default. `setup.py --full --yes`
-also builds it. The compiler runs in a temporary directory and only a successful
-build replaces the installed plugin. The base desktop still works if building
-fails; the setup log contains the compiler output and Super+W shows repair steps.
-
-The installed source remains in `~/.local/share/quickshell-dotfiles/overview-source`.
-After Hyprland or its dependencies change, run:
-
-```sh
-~/.local/bin/desktop-overview --build
-```
-
-Or, from this checkout:
-
-```sh
-./scripts/build-overview.sh
-```
-
-Build requirements include matching Hyprland headers, `base-devel`, `clang`, and
-`pkgconf`. Full setup installs them through pacman. Future Hyprland releases may
-require updated plugin source; rebuilding cannot fix an incompatible source API.
-
-A fingerprint of the installed compositor, dependency versions and built plugin
-is checked before loading. Stale or modified builds are skipped, leaving the
-base desktop available. The plugin also checks the running compositor ABI.
-Log out and back in after a successful build; setup never hot-loads the plugin.
+The active overview is in `home/.config/quickshell/overview/`, runs as a separate
+Quickshell process, and requires no compiler or compositor plugin.

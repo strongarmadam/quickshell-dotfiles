@@ -109,7 +109,7 @@ hl.curve("almostLinear",   { type = "bezier", points = { {0.5, 0.5},   {0.75, 1}
 hl.curve("quick",          { type = "bezier", points = { {0.15, 0},    {0.1, 1}     } })
 
 -- Default springs
-hl.curve("easy",           { type = "spring", mass = 1, stiffness = 238.1191, dampening = 24.21279333 })
+hl.curve("easy",           { type = "spring", mass = 1, stiffness = 238.1191, damping = 24.21279333 })
 
 hl.animation({ leaf = "global",        enabled = true,  speed = 10,   bezier = "default" })
 hl.animation({ leaf = "border",        enabled = true,  speed = 5.39, bezier = "easeOutQuint" })
@@ -441,17 +441,8 @@ hl.layer_rule({
     ignore_alpha = 0.20,
 })
 
--- Workspace overview on Super + W.
--- Never load a stale binary after a compositor/dependency upgrade.
--- This helper reads the installed binary; it does not call back into Hyprland IPC.
-local overviewCheck = io.popen('"' .. os.getenv("HOME") .. '/.local/bin/desktop-overview" --check 2>/dev/null')
-local overviewReady = overviewCheck and overviewCheck:read("*a") == "compatible\n"
-if overviewCheck then overviewCheck:close() end
-local overviewLoaded = false
-if overviewReady then overviewLoaded = pcall(require, "workspace-overview") end
-if not overviewLoaded then
-    hl.bind("SUPER + W", hl.dsp.exec_cmd("notify-send 'Workspace overview unavailable' 'Run ~/.local/bin/desktop-overview --build, then log out and back in.'"), { description = "Workspace overview: rebuild required" })
-end
+-- Standalone Quickshell overview on Super + W.
+require("workspace-overview")
 
 -- Calendar dropdown.
 hl.bind("SUPER + D", hl.dsp.exec_cmd("~/.local/bin/quickshell-launcher calendar"), { description = "Toggle calendar" })

@@ -28,6 +28,6 @@ except (OSError, ValueError, KeyError, IndexError):
 helper = home / '.local/bin/desktop-overview'
 result = subprocess.run([str(helper), '--check'], capture_output=True) if helper.is_file() else None
 if '--skip-overview' not in sys.argv:
-    check('Workspace overview', result is not None and result.returncode == 0, '~/.local/bin/desktop-overview --build, then log out and back in')
+    check('Workspace overview', result is not None and result.returncode == 0, 'rerun setup.py and install Quickshell')
 print('Session-independent checks only; test networking, Bluetooth, audio, locking, and theme switching after login.')
 sys.exit(bool(issues))

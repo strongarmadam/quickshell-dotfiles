@@ -28,7 +28,7 @@ class BootstrapTests(unittest.TestCase):
         self.assertIn('chromium', packages)
         self.assertIn('yazi', packages)
         self.assertIn('btop', packages)
-        self.assertIn('clang', packages)
+        self.assertNotIn('clang', packages)
         self.assertNotIn('firefox', packages)
         self.assertNotIn('hyprpaper', packages)
         self.assertNotIn('sddm', packages)
@@ -68,18 +68,10 @@ class BootstrapTests(unittest.TestCase):
                 self.assertIn(['sudo','systemctl','enable','bluetooth.service'], calls)
 
 class OverviewTests(unittest.TestCase):
-    def test_stale_runtime_or_modified_binary_is_rejected(self):
-        source = setup.ROOT/'home/.local/bin/desktop-overview'
-        loader = importlib.machinery.SourceFileLoader('overview_test', str(source))
-        spec = importlib.util.spec_from_loader(loader.name, loader)
-        module = importlib.util.module_from_spec(spec); loader.exec_module(module)
-        with tempfile.TemporaryDirectory() as folder:
-            dest = Path(folder)/'plugin.so'; dest.write_bytes(b'test plugin')
-            meta = Path(folder)/'plugin.json'
-            runtime = {'abi':'test'}
-            meta.write_text(json.dumps({'runtime':runtime,'plugin':module.hashlib.sha256(dest.read_bytes()).hexdigest()}))
-            with patch.object(module,'DEST',dest), patch.object(module,'META',meta), patch.object(module,'fingerprint',return_value=runtime):
-                self.assertTrue(module.compatible())
-                dest.write_bytes(b'changed plugin'); self.assertFalse(module.compatible())
-                dest.write_bytes(b'test plugin')
-                with patch.object(module,'fingerprint',return_value={'abi':'upgrade'}): self.assertFalse(module.compatible())
+    def test_setup_installs_standalone_overview_without_plugin_source(self):
+        files = setup.plan(Path('/tmp/overview-test-home'), setup.DEFAULTS)
+        self.assertIn('.config/quickshell/overview/shell.qml', files)
+        self.assertIn('.local/bin/workspace-overview', files)
+        self.assertFalse(any('overview-source/' in name for name in files))
+        self.assertNotIn(b'hl.plugin.load', files['.config/hypr/workspace-overview.lua'][1])
+        self.assertIn(b'/tmp/overview-test-home/.local/bin/workspace-overview', files['.config/hypr/workspace-overview.lua'][1])
