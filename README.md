@@ -20,7 +20,7 @@ and machine-specific monitor settings are excluded.
 - Theme Creator: wallpaper, colors, highlights, outlines, shapes, fonts, window
   effects, GTK, Kitty, and ANSI colors. Existing themes are protected from overwrite.
 - Theme-aware GTK/Kitty styling, session-lock configuration, and SDDM theme assets.
-- Standalone Quickshell workspace overview: live previews, icon/title fallback, keyboard navigation, and a centered final row. No native plugin build.
+- Standalone Quickshell workspace overview: unlabeled live previews, icon fallback, keyboard navigation, a centered final row, and smooth opening/closing animations. No native plugin build.
 
 | Moonlit Forest | Rivendell | 16-Bit Sunset |
 | --- | --- | --- |
@@ -116,7 +116,7 @@ Do not run it against your working source desktop merely to export it.
 Failures produce a nonzero exit status and a log under
 `~/.local/state/quickshell-dotfiles/setup-*.log`. Fix the reported issue and rerun.
 The overview runs only while open. Unavailable window capture falls back to
-application icons and titles; no compiler or matching Hyprland headers are needed.
+application icons; no compiler or matching Hyprland headers are needed.
 
 After installation:
 

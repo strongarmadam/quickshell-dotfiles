@@ -4,7 +4,9 @@ Super+W opens/closes this separate, on-demand Quickshell process. Click a tile,
 use arrows (or H/J/K/L) and Enter, or press 1–9 to select a workspace. Escape
 or a click outside the tiles dismisses it. More than three rows scroll.
 
-The first five numbered workspaces are always shown. Additional numbered
+The interface shows only workspace previews, with no labels or instructions.
+Opening and closing use a smooth fade-and-scale transition. Incomplete last
+rows are centered. The first five numbered workspaces are always shown. Additional numbered
 workspaces expand the grid. Named/special workspaces are not included.
 The focused monitor hosts the overview; each workspace uses its owning
 monitor's geometry. Theme colors and wallpaper are read when it opens.
@@ -12,7 +14,7 @@ monitor's geometry. Theme colors and wallpaper are read when it opens.
 `backend.py` is the public Hyprland IPC adapter. It polls metadata only while
 open; commands have timeouts and failures remain within this UI. Window
 images use Quickshell's Wayland ScreencopyView, not compositor rendering hooks.
-Unavailable capture falls back to application icons and titles. Previews
+Unavailable capture falls back to application icons. Previews
 reconstruct workspace layouts; they do not include desktop widgets, panels,
 compositor effects, or exact window stacking. Inactive clients may not supply
 fresh frames. No images are saved to disk.
