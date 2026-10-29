@@ -15,23 +15,24 @@ Rectangle {
         anchors.fill: parent
         anchors.margins: Config.Settings.value("Coral Lagoon", "CpuWidget", "anchors.margins", 24)
         spacing: Config.Settings.value("Coral Lagoon", "CpuWidget", "spacing", 5)
-        Row {
+        Item {
             width: parent.width
-
-            Text {
-                text: "  CPU"
-                color: Config.Settings.value("Coral Lagoon", "CpuWidget", "color_2", "#efb957")
-                font.family: Config.Settings.value("Coral Lagoon", "CpuWidget", "font.family", "JetBrainsMono Nerd Font")
-                font.pixelSize: Config.Settings.value("Coral Lagoon", "CpuWidget", "font.pixelSize", 12)
-                font.bold: true
+            height: Math.max(headerLabel.implicitHeight, headerValue.implicitHeight)
+            Row {
+                id: headerLabel
+                anchors.left: parent.left
+                Text {
+                    text: "  CPU"
+                    color: Config.Settings.value("Coral Lagoon", "CpuWidget", "color_2", "#efb957")
+                    font.family: Config.Settings.value("Coral Lagoon", "CpuWidget", "font.family", "JetBrainsMono Nerd Font")
+                    font.pixelSize: Config.Settings.value("Coral Lagoon", "CpuWidget", "font.pixelSize", 12)
+                    font.bold: true
+                }
             }
 
-            Item {
-                width: parent.width - 95
-                height: Config.Settings.value("Coral Lagoon", "CpuWidget", "height_2", 1)
-            }
-
             Text {
+                id: headerValue
+                anchors.right: parent.right
                 text: monitor.cpuUsage.toFixed(0) + "%"
                 color: Config.Settings.value("Coral Lagoon", "CpuWidget", "color_3", "#e5f6ff")
                 font.pixelSize: Config.Settings.value("Coral Lagoon", "CpuWidget", "font.pixelSize_2", 13)

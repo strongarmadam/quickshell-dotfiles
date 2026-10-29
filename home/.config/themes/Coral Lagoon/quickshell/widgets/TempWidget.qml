@@ -15,23 +15,24 @@ Rectangle {
         anchors.fill: parent
         anchors.margins: Config.Settings.value("Coral Lagoon", "TempWidget", "anchors.margins", 24)
         spacing: Config.Settings.value("Coral Lagoon", "TempWidget", "spacing", 5)
-        Row {
+        Item {
             width: parent.width
-
-            Text {
-                text: "  TEMP"
-                color: Config.Settings.value("Coral Lagoon", "TempWidget", "color_2", "#efb957")
-                font.family: Config.Settings.value("Coral Lagoon", "TempWidget", "font.family", "JetBrainsMono Nerd Font")
-                font.pixelSize: Config.Settings.value("Coral Lagoon", "TempWidget", "font.pixelSize", 12)
-                font.bold: true
+            height: Math.max(headerLabel.implicitHeight, headerValue.implicitHeight)
+            Row {
+                id: headerLabel
+                anchors.left: parent.left
+                Text {
+                    text: "  TEMP"
+                    color: Config.Settings.value("Coral Lagoon", "TempWidget", "color_2", "#efb957")
+                    font.family: Config.Settings.value("Coral Lagoon", "TempWidget", "font.family", "JetBrainsMono Nerd Font")
+                    font.pixelSize: Config.Settings.value("Coral Lagoon", "TempWidget", "font.pixelSize", 12)
+                    font.bold: true
+                }
             }
 
-            Item {
-                width: parent.width - 110
-                height: Config.Settings.value("Coral Lagoon", "TempWidget", "height_2", 1)
-            }
-
             Text {
+                id: headerValue
+                anchors.right: parent.right
                 text: monitor.cpuTemp.toFixed(0) + "°C"
                 color: Config.Settings.value("Coral Lagoon", "TempWidget", "color_3", "#e5f6ff")
                 font.pixelSize: Config.Settings.value("Coral Lagoon", "TempWidget", "font.pixelSize_2", 13)

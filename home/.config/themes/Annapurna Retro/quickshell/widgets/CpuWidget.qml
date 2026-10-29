@@ -15,23 +15,24 @@ Rectangle {
         anchors.fill: parent
         anchors.margins: Config.Settings.value("Annapurna Retro", "CpuWidget", "anchors.margins", 14)
         spacing: Config.Settings.value("Annapurna Retro", "CpuWidget", "spacing", 5)
-        Row {
+        Item {
             width: parent.width
-
-            Text {
-                text: "  CPU"
-                color: Config.Settings.value("Annapurna Retro", "CpuWidget", "color_2", "#45b8ff")
-                font.family: Config.Settings.value("Annapurna Retro", "CpuWidget", "font.family", "JetBrainsMono Nerd Font")
-                font.pixelSize: Config.Settings.value("Annapurna Retro", "CpuWidget", "font.pixelSize", 12)
-                font.bold: true
+            height: Math.max(headerLabel.implicitHeight, headerValue.implicitHeight)
+            Row {
+                id: headerLabel
+                anchors.left: parent.left
+                Text {
+                    text: "  CPU"
+                    color: Config.Settings.value("Annapurna Retro", "CpuWidget", "color_2", "#45b8ff")
+                    font.family: Config.Settings.value("Annapurna Retro", "CpuWidget", "font.family", "JetBrainsMono Nerd Font")
+                    font.pixelSize: Config.Settings.value("Annapurna Retro", "CpuWidget", "font.pixelSize", 12)
+                    font.bold: true
+                }
             }
 
-            Item {
-                width: parent.width - 95
-                height: Config.Settings.value("Annapurna Retro", "CpuWidget", "height_2", 1)
-            }
-
             Text {
+                id: headerValue
+                anchors.right: parent.right
                 text: monitor.cpuUsage.toFixed(0) + "%"
                 color: Config.Settings.value("Annapurna Retro", "CpuWidget", "color_3", "#45b8ff")
                 font.pixelSize: Config.Settings.value("Annapurna Retro", "CpuWidget", "font.pixelSize_2", 13)

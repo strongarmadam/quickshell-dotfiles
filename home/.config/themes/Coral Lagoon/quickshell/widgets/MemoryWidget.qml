@@ -15,23 +15,24 @@ Rectangle {
         anchors.fill: parent
         anchors.margins: Config.Settings.value("Coral Lagoon", "MemoryWidget", "anchors.margins", 24)
         spacing: Config.Settings.value("Coral Lagoon", "MemoryWidget", "spacing", 5)
-        Row {
+        Item {
             width: parent.width
-
-            Text {
-                text: "󰍛  MEMORY"
-                color: Config.Settings.value("Coral Lagoon", "MemoryWidget", "color_2", "#efb957")
-                font.family: Config.Settings.value("Coral Lagoon", "MemoryWidget", "font.family", "JetBrainsMono Nerd Font")
-                font.pixelSize: Config.Settings.value("Coral Lagoon", "MemoryWidget", "font.pixelSize", 12)
-                font.bold: true
+            height: Math.max(headerLabel.implicitHeight, headerValue.implicitHeight)
+            Row {
+                id: headerLabel
+                anchors.left: parent.left
+                Text {
+                    text: "󰍛  MEMORY"
+                    color: Config.Settings.value("Coral Lagoon", "MemoryWidget", "color_2", "#efb957")
+                    font.family: Config.Settings.value("Coral Lagoon", "MemoryWidget", "font.family", "JetBrainsMono Nerd Font")
+                    font.pixelSize: Config.Settings.value("Coral Lagoon", "MemoryWidget", "font.pixelSize", 12)
+                    font.bold: true
+                }
             }
 
-            Item {
-                width: parent.width - 145
-                height: Config.Settings.value("Coral Lagoon", "MemoryWidget", "height_2", 1)
-            }
-
             Text {
+                id: headerValue
+                anchors.right: parent.right
                 text: monitor.memoryUsage.toFixed(0) + "%"
                 color: Config.Settings.value("Coral Lagoon", "MemoryWidget", "color_3", "#e5f6ff")
                 font.pixelSize: Config.Settings.value("Coral Lagoon", "MemoryWidget", "font.pixelSize_2", 13)

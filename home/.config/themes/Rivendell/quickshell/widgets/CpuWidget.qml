@@ -17,27 +17,28 @@ Rectangle {
         anchors.fill: parent
         anchors.margins: Config.Settings.value("Rivendell", "CpuWidget", "anchors.margins", 14)
         spacing: Config.Settings.value("Rivendell", "CpuWidget", "spacing", 5)
-        Row {
+        Item {
             width: parent.width
-
-            Item {
-                width: 22; height: 16
-                ThemeAppIcon { width: 16; height: 16; symbol: "ring"; ink: Config.Settings.value("Rivendell", "CpuWidget", "color_2", "#aa8953") }
+            height: Math.max(headerLabel.implicitHeight, headerValue.implicitHeight)
+            Row {
+                id: headerLabel
+                anchors.left: parent.left
+                Item {
+                    width: 22; height: 16
+                    ThemeAppIcon { width: 16; height: 16; symbol: "ring"; ink: Config.Settings.value("Rivendell", "CpuWidget", "color_2", "#aa8953") }
+                }
+                Text {
+                    text: "CPU"
+                    color: Config.Settings.value("Rivendell", "CpuWidget", "color_2", "#aa8953")
+                    font.family: Config.Settings.value("Rivendell", "CpuWidget", "font.family", "JetBrainsMono Nerd Font")
+                    font.pixelSize: Config.Settings.value("Rivendell", "CpuWidget", "font.pixelSize", 12)
+                    font.bold: true
+                }
             }
+
             Text {
-                text: "CPU"
-                color: Config.Settings.value("Rivendell", "CpuWidget", "color_2", "#aa8953")
-                font.family: Config.Settings.value("Rivendell", "CpuWidget", "font.family", "JetBrainsMono Nerd Font")
-                font.pixelSize: Config.Settings.value("Rivendell", "CpuWidget", "font.pixelSize", 12)
-                font.bold: true
-            }
-
-            Item {
-                width: parent.width - 95
-                height: Config.Settings.value("Rivendell", "CpuWidget", "height_2", 1)
-            }
-
-            Text {
+                id: headerValue
+                anchors.right: parent.right
                 text: monitor.cpuUsage.toFixed(0) + "%"
                 color: Config.Settings.value("Rivendell", "CpuWidget", "color_3", "#e2dcc5")
                 font.pixelSize: Config.Settings.value("Rivendell", "CpuWidget", "font.pixelSize_2", 13)

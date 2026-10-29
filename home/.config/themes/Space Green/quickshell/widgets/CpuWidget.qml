@@ -17,23 +17,24 @@ Rectangle {
         anchors.fill: parent
         anchors.margins: Config.Settings.value("Space Green", "CpuWidget", "anchors.margins", 14)
         spacing: Config.Settings.value("Space Green", "CpuWidget", "spacing", 5)
-        Row {
+        Item {
             width: parent.width
-
-            Text {
-                text: "  CPU"
-                color: Config.Settings.value("Space Green", "CpuWidget", "color_2", "#f4b942")
-                font.family: Config.Settings.value("Space Green", "CpuWidget", "font.family", "JetBrainsMono Nerd Font")
-                font.pixelSize: Config.Settings.value("Space Green", "CpuWidget", "font.pixelSize", 12)
-                font.bold: true
+            height: Math.max(headerLabel.implicitHeight, headerValue.implicitHeight)
+            Row {
+                id: headerLabel
+                anchors.left: parent.left
+                Text {
+                    text: "  CPU"
+                    color: Config.Settings.value("Space Green", "CpuWidget", "color_2", "#f4b942")
+                    font.family: Config.Settings.value("Space Green", "CpuWidget", "font.family", "JetBrainsMono Nerd Font")
+                    font.pixelSize: Config.Settings.value("Space Green", "CpuWidget", "font.pixelSize", 12)
+                    font.bold: true
+                }
             }
 
-            Item {
-                width: parent.width - 95
-                height: Config.Settings.value("Space Green", "CpuWidget", "height_2", 1)
-            }
-
             Text {
+                id: headerValue
+                anchors.right: parent.right
                 text: monitor.cpuUsage.toFixed(0) + "%"
                 color: Config.Settings.value("Space Green", "CpuWidget", "color_3", "#d7e5dc")
                 font.pixelSize: Config.Settings.value("Space Green", "CpuWidget", "font.pixelSize_2", 13)

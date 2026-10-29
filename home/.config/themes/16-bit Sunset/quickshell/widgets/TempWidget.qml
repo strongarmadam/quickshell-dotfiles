@@ -15,23 +15,24 @@ Rectangle {
         anchors.fill: parent
         anchors.margins: Config.Settings.value("16-bit Sunset", "TempWidget", "anchors.margins", 14)
         spacing: Config.Settings.value("16-bit Sunset", "TempWidget", "spacing", 5)
-        Row {
+        Item {
             width: parent.width
-
-            Text {
-                text: "  TEMP"
-                color: Config.Settings.value("16-bit Sunset", "TempWidget", "color_2", "#d47755")
-                font.family: Config.Settings.value("16-bit Sunset", "TempWidget", "font.family", "JetBrainsMono Nerd Font")
-                font.pixelSize: Config.Settings.value("16-bit Sunset", "TempWidget", "font.pixelSize", 12)
-                font.bold: true
+            height: Math.max(headerLabel.implicitHeight, headerValue.implicitHeight)
+            Row {
+                id: headerLabel
+                anchors.left: parent.left
+                Text {
+                    text: "  TEMP"
+                    color: Config.Settings.value("16-bit Sunset", "TempWidget", "color_2", "#d47755")
+                    font.family: Config.Settings.value("16-bit Sunset", "TempWidget", "font.family", "JetBrainsMono Nerd Font")
+                    font.pixelSize: Config.Settings.value("16-bit Sunset", "TempWidget", "font.pixelSize", 12)
+                    font.bold: true
+                }
             }
 
-            Item {
-                width: parent.width - 110
-                height: Config.Settings.value("16-bit Sunset", "TempWidget", "height_2", 1)
-            }
-
             Text {
+                id: headerValue
+                anchors.right: parent.right
                 text: monitor.cpuTemp.toFixed(0) + "°C"
                 color: Config.Settings.value("16-bit Sunset", "TempWidget", "color_3", "#d47755")
                 font.pixelSize: Config.Settings.value("16-bit Sunset", "TempWidget", "font.pixelSize_2", 13)

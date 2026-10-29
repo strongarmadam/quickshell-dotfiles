@@ -15,23 +15,24 @@ Rectangle {
         anchors.fill: parent
         anchors.margins: Config.Settings.value("Moonlit Forest", "MemoryWidget", "anchors.margins", 14)
         spacing: Config.Settings.value("Moonlit Forest", "MemoryWidget", "spacing", 5)
-        Row {
+        Item {
             width: parent.width
-
-            Text {
-                text: "󰍛  MEMORY"
-                color: Config.Settings.value("Moonlit Forest", "MemoryWidget", "color_2", "#3aa9d2")
-                font.family: Config.Settings.value("Moonlit Forest", "MemoryWidget", "font.family", "JetBrainsMono Nerd Font")
-                font.pixelSize: Config.Settings.value("Moonlit Forest", "MemoryWidget", "font.pixelSize", 12)
-                font.bold: true
+            height: Math.max(headerLabel.implicitHeight, headerValue.implicitHeight)
+            Row {
+                id: headerLabel
+                anchors.left: parent.left
+                Text {
+                    text: "󰍛  MEMORY"
+                    color: Config.Settings.value("Moonlit Forest", "MemoryWidget", "color_2", "#3aa9d2")
+                    font.family: Config.Settings.value("Moonlit Forest", "MemoryWidget", "font.family", "JetBrainsMono Nerd Font")
+                    font.pixelSize: Config.Settings.value("Moonlit Forest", "MemoryWidget", "font.pixelSize", 12)
+                    font.bold: true
+                }
             }
 
-            Item {
-                width: parent.width - 145
-                height: Config.Settings.value("Moonlit Forest", "MemoryWidget", "height_2", 1)
-            }
-
             Text {
+                id: headerValue
+                anchors.right: parent.right
                 text: monitor.memoryUsage.toFixed(0) + "%"
                 color: Config.Settings.value("Moonlit Forest", "MemoryWidget", "color_3", "#3aa9d2")
                 font.pixelSize: Config.Settings.value("Moonlit Forest", "MemoryWidget", "font.pixelSize_2", 13)
