@@ -499,3 +499,6 @@ hl.bind("SUPER + SHIFT + Q", hl.dsp.exec_cmd("~/.local/bin/quickshell-launcher t
 
 -- Keep the settings editor within the usable display area.
 hl.window_rule({ name = "quickshell-settings-editor", match = { class = "^org[.]quickshell$", title = "^Quickshell Settings$" }, float = true, center = true })
+
+-- Restore each app’s last closed floating layout.
+require("floating-window-memory")

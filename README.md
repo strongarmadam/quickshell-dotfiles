@@ -255,3 +255,10 @@ The switcher refreshes user-service definitions and the session environment.
 Wallpaper failures are reported separately and do not block the widgets or
 compositor from updating. A desktop-service or compositor failure is reported
 as a partial application, with a diagnostic log.
+
+### Remember floating windows
+
+Apps closed floating reopen at their last size and position. Closing an app tiled
+clears its remembered floating layout; the last closed window of an app wins.
+Common file dialogs retain their existing rules. Saved layouts stay local to each
+machine and survive login and config reloads. See [details](docs/FLOATING-WINDOWS.md).
