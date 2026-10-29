@@ -45,14 +45,16 @@ def main():
    if path.is_dir():shutil.copytree(path,dest,symlinks=True)
    else:shutil.copy2(path,dest,follow_symlinks=False)
  for name in NAMES:
-  target=Path('/usr/share/sddm/themes')/name.lower().replace(' ','-');save(target);target.mkdir(parents=True,exist_ok=True)
+  target=Path('/usr/share/sddm/themes')/name.lower().replace(' ','-')
+  if target.is_symlink():raise ValueError('Login theme directory must not be a symlink: '+str(target))
+  save(target);target.mkdir(parents=True,exist_ok=True)
   for filename in allowed:
    src=source/name/'sddm'/filename
    if src.is_file():
     dst=target/filename
     if dst.is_symlink():dst.unlink()
     shutil.copyfile(src,dst);dst.chmod(0o644);os.chown(dst,0,0)
-  target.chmod(0o755)
+  target.chmod(0o755);os.chown(target,0,0)
  helper=Path('/usr/local/bin/quickshell-login-theme');save(helper);helper.parent.mkdir(parents=True,exist_ok=True)
  if helper.is_symlink():helper.unlink()
  helper.write_text(HELPER);helper.chmod(0o755);os.chown(helper,0,0)
