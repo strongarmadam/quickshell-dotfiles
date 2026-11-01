@@ -315,7 +315,7 @@ spacing: Config.Settings.value("shared", "DesktopUi", "spacing_2", 3)
                                 onRequestedSourceChanged: loadFailed = false
                                 onStatusChanged: if (status === Image.Error && !loadFailed) loadFailed = true
                             }
-                            MouseArea { anchors.fill: parent; acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton; onClicked: event => { if (event.button === Qt.RightButton && modelData.hasMenu) modelData.display(bar, bar.width - 50, bar.height); else if (event.button === Qt.MiddleButton) modelData.secondaryActivate(); else modelData.activate(); } }
+                            MouseArea { anchors.fill: parent; acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton; onClicked: event => { if (event.button === Qt.RightButton && modelData.hasMenu) trayMenu.open(modelData, parent, bar); else if (event.button === Qt.MiddleButton) modelData.secondaryActivate(); else modelData.activate(); } }
                         }
                     }
                     UiButton { palette: root; boxed: true; implicitWidth: 55; label: "󰻠 " + Math.round(root.monitor.cpuUsage) + "%"; onClicked: Quickshell.execDetached([Quickshell.env("HOME") + "/.local/bin/desktop-app", "monitor"]) }
@@ -345,6 +345,7 @@ spacing: Config.Settings.value("shared", "DesktopUi", "spacing_2", 3)
             }
         }
     }
+    TrayMenu { id: trayMenu; palette: root }
     PanelWindow {
         id: volumePanel; visible: false; screen: Quickshell.screens[0]
         anchors { top: true; right: true }

@@ -1,7 +1,7 @@
 798aca3625abb07d20104c9a05ef55c3b53b8323869b1284144183e6881c6e07  .github/workflows/check.yml
 5e2a51fc0a1c21564eb6490e99b4aa80ee6adb2db8bb17f2710654d28a822d3c  .gitignore
 96abc6c4209981db13765ddb1cdcb069342ec49424546666403e7af63b408f55  LICENSE
-22e95979f7aeb905d5d17b15e45a7bc7781e3cd4721b434bfcad198cdd5a1807  README.md
+d50f4cd52f7b9175808feec5fdd9b58d09b969b6dc148109a7f283e45702c8df  README.md
 99b73b1734f389efaf318c9aeffacf8e25d51d8362bb1b8bc19557176b85abbb  THIRD_PARTY.md
 3d2ff1e23a8725cd42e3522ea69ccc68dc5864690c21a40d2f5ff890e12a519d  docs/FLOATING-WINDOWS.md
 ec9f3483146bcfcebeba497b6bfd7b7f5741f30c601d531ba2d9f05cda6fce80  docs/SHARING.md
@@ -93,9 +93,10 @@ baecf7e53da2d85de0ee6b2bbe6f6a0aa7c6df7e91b2147d7dc7343600f3f1f8  home/.config/q
 5cba2de75383f23aee59ce30e5efa1f07159d4cc8878cf526f541b4e2f4c9785  home/.config/quickshell/components/AppLauncher.qml
 8f50b90114460de5165927cbbafce2cae6d8bb6c8499afdb64d9a25c05ba35bc  home/.config/quickshell/components/CalendarPanel.qml
 eadde50d741b6288c8bec5e41bb189c7d3335849027751cb9ad9c0532bd65dbf  home/.config/quickshell/components/DesktopNotifications.qml
-84d33cd234f38d6b201156aa496bf2ef6737d2bda2f4987a8b207d101bb5f14b  home/.config/quickshell/components/DesktopUi.qml
+b1f742d58224e235fe089c08272ff99900e82c999089fe155fb23e3909b3fef8  home/.config/quickshell/components/DesktopUi.qml
 7b71ce7c21c1096de4b663cc4272309cd5c0967f4bd562858c080418fe0f764b  home/.config/quickshell/components/PowerMenu.qml
 5e390d107e8292fb220c3a585a79e6cf0845390a8d865a94a7cf48b9b61b12a7  home/.config/quickshell/components/ThemeAppIcon.qml
+fcd008bddc603a8a5809e9aabb325bbd075e656befb92a2901c81f51c0c9553c  home/.config/quickshell/components/TrayMenu.qml
 7c92870bd33415af04f34f1aa3aedd4a44e3e62d8b535d7dd2ee38e9cf629e82  home/.config/quickshell/components/UiButton.qml
 26ae010084273bee371bb2f33e58bbd8985ee142d11459c92a8bf422c5e1d8b0  home/.config/quickshell/components/icons/generic-application.png
 52e1edb973fb472834076a467ed804323d7ee6431fef527d95202cc6f0749382  home/.config/quickshell/keybindings/README.md
@@ -119,8 +120,11 @@ c213a54601f15e740f484ab8ec2082da50df12e0a81ff67747ad4c6f31d3394f  home/.config/q
 b336b2fe4b7b074cddb3f4a67e41488ab380e3d93e031dbe74304f8523c5b592  home/.config/quickshell/theme-creator/backend.py
 eeabca72461061121879589faf39e656f7a70f45a588493b1192647fc9ecee72  home/.config/quickshell/theme-selector/ThemeData.qml
 9dda93c7757b19fe14a7f14aab053fa445456a14accee427a628ac12c0db2a5b  home/.config/quickshell/theme-selector/shell.qml
+c3af18c8ac3efcd3cc792799e575ee89e3d125da4cf53268db0cb3418fbaead2  home/.config/quickshell/tray-watcher/shell.qml
 262fdca7c79ff753becdf4713a0734bb3369fc8d01072749b03e00197d774536  home/.config/systemd/user/clipboard-history.service
 d8c103bf5a74670c8415e0413a51011cf1a90190f7f8797fede5e4c680f9d9ec  home/.config/systemd/user/quickshell-desktop.service
+332b45e64424ddd75f7cb52eeaeb8b322a7a8515e7107df6d465a984b33bbfba  home/.config/systemd/user/quickshell-desktop.service.d/tray-registry.conf
+8f826993175fa312d8c631ab515664f781c345dfe474d7919a96945372e49c09  home/.config/systemd/user/quickshell-tray-watcher.service
 fb23f576c5df56440d06536958bd939db878bcc5911f3667e9f9124d83e541a4  home/.config/themes/16-bit Sunset/Screenshot3.png
 7c41f2c10d47a73257a00af679a714a1e729dcfa32e34d136c427cba760a2f17  home/.config/themes/16-bit Sunset/gtk-3.0/file-dialogs.css
 68166d190dc437efbf6c3af9aa0595c00d2d54ad1f8a7e4a63e3598448a68a23  home/.config/themes/16-bit Sunset/gtk-3.0/gtk.css
@@ -133,7 +137,7 @@ bf62bcaf08bbb0425f72e56b82179e6e87ceda2844c6d1100682d48fbf4edea5  home/.config/t
 2872a8152570c0718f96479599707c60ce2ae9e26433ca4021c02d3a73725dc7  home/.config/themes/16-bit Sunset/parallax/middle.png
 fe88403e4d4115fbe8fe43e55511ae6ddde6b4cb4c31639a663e74161a6c2d8b  home/.config/themes/16-bit Sunset/quickshell/ParallaxWallpaper.qml
 5a235710bd5e8a61d743ccd1f0c4a819aa3566b3edc4e8e7439d545b367054b7  home/.config/themes/16-bit Sunset/quickshell/WorkspacePan.qml
-5843e920454299b06232ce4956c984eec67d0536e4a15aa2f5b2e3f57ccfe577  home/.config/themes/16-bit Sunset/quickshell/shell.qml
+8441ef5fbff3ae7d17584ff300d3f6f32c9dc03d46c3307d522266b9c6f3a6e8  home/.config/themes/16-bit Sunset/quickshell/shell.qml
 828a8c08978c249cc2431a311185db8aab9fc587fd578f9622d4c84590c8f099  home/.config/themes/16-bit Sunset/quickshell/widgets/CpuWidget.qml
 c6f0d1840b5ad7b6eeb2bc8dfa10f6d199ce7a9f7937e04338bc6135bb357c8b  home/.config/themes/16-bit Sunset/quickshell/widgets/Glass.qml
 63f9837aaf193becf6bfc29c9ef773960459c1753d4773cd4953cbdc04f5a051  home/.config/themes/16-bit Sunset/quickshell/widgets/Graph.qml
@@ -159,7 +163,7 @@ b0b789d0f933608b2851a669a71aa194a2d1281b68376db8a21ac3fca699dd67  home/.config/t
 bc62c1546d2cbd9067d2143ac2bfb3848ce8c3a34f2e21337be915e195eab804  home/.config/themes/Annapurna Retro/kitty.conf
 6a7d8b8b71ea2b6338338e9a7f262257baab55067c04723fbc2834352ee33549  home/.config/themes/Annapurna Retro/kitty/kitty.conf
 bd74b641179d5caa7c870d6f8f317d069dbe51a1757ab8080ea486a936e26ae3  home/.config/themes/Annapurna Retro/quickshell/WorkspacePan.qml
-d0de4d252e6178e6a7f07881267fc940b61dc3e19b6737bb7c8ee558f0b621e7  home/.config/themes/Annapurna Retro/quickshell/shell.qml
+4443499cb7c43478338301fff3bbff8b53bc8908a7d0fcb1a7168cb9a5b49de4  home/.config/themes/Annapurna Retro/quickshell/shell.qml
 62e3c621f2e861bde0ce38dad8a3afb25b1c447de9bc4192bc9c93be017110d7  home/.config/themes/Annapurna Retro/quickshell/widgets/CpuWidget.qml
 b2abb4ecb6e0e21393b01a8f09bb52ec9ade41c294750f9067116c47ce00cc45  home/.config/themes/Annapurna Retro/quickshell/widgets/Glass.qml
 9b3dc900d6ed17634186f637029d5287cabfe9c54023fc7f9f34fd3835207a6d  home/.config/themes/Annapurna Retro/quickshell/widgets/Graph.qml
@@ -184,7 +188,7 @@ f7f52167575ffbb69d22a537648b0d38707eee20d857de42bd579bb88a1a1e77  home/.config/t
 2b45d7d0e143dce646252227de01adae553c4d7ca5111307cc16290d4fde2ecc  home/.config/themes/Autumn Grove/hyprland.lua
 69cce340e8b9e5626f1c1ebaa9741c61947ab635962f4573a6d538351a7dae42  home/.config/themes/Autumn Grove/kitty/kitty.conf
 c301349ae5ec10a9df8a78ed09d9e9ab9c548837fa16f247beb1b0fa03b6fa4e  home/.config/themes/Autumn Grove/quickshell/WorkspacePan.qml
-9c4f145d1b1d34c686c493fba07069a1e7ca2989793c472c4c2cdbdfc85c8bba  home/.config/themes/Autumn Grove/quickshell/shell.qml
+f459aaeffb0bbd9bf91491cce9d3c8c071c0f8d6e2650bd914efbf5f755979ac  home/.config/themes/Autumn Grove/quickshell/shell.qml
 cd582f06a27bb2ed5e285ea4250a786215fc3810ee596623d5b47de8094b69cc  home/.config/themes/Autumn Grove/quickshell/widgets/CpuWidget.qml
 a24499d8a98cbe9fe9799c179010c6324c6ca58abaa285bf4f2c836005465723  home/.config/themes/Autumn Grove/quickshell/widgets/Glass.qml
 9a571ffdd55ac5a99c78ccdcbf3f8ad927ab0cee81cd013cea6f410f77f6a15b  home/.config/themes/Autumn Grove/quickshell/widgets/Graph.qml
@@ -212,7 +216,7 @@ d2aa877a59dda34fce5d2f4266d6f55f6290fa774d866b373c3d26f30c9b8cc3  home/.config/t
 9cef8459d9087f406a9207b817c94246c4b6930601cd4a5de4d2f04d6af7b2e3  home/.config/themes/Bakery Hearth/parallax/foreground.png
 a80ecc48e21b92e732773fff9c750c96dade1610a7672bbd8c7c9fef04d3ce42  home/.config/themes/Bakery Hearth/parallax/plant.png
 efcfba2fccf0fca85f6c9e6b23685bd1ff4fac5fda36089b1d3aaf9de395995f  home/.config/themes/Bakery Hearth/quickshell/ParallaxWallpaper.qml
-045c0a232449f421a6d40bf5fbff43ffa1497e814f451789709b79073b0d9165  home/.config/themes/Bakery Hearth/quickshell/shell.qml
+b12d066df65889dd1b49d1babdee3899163225043ad558dd34eafbad6f77cf70  home/.config/themes/Bakery Hearth/quickshell/shell.qml
 c2644aea4cf9dc82dadbf65f1674f2a17760d88ccebfefac0e6dd21d823f48a1  home/.config/themes/Bakery Hearth/quickshell/widgets/CpuWidget.qml
 7a2a5562f858ebac5fe12ac219854dce0efce600f8910bb7a6e8ee904206d34d  home/.config/themes/Bakery Hearth/quickshell/widgets/Glass.qml
 38300f5ccc892b8aa2e84a64d0daaa274d8902c85758d0349cb1f4e42e968513  home/.config/themes/Bakery Hearth/quickshell/widgets/Graph.qml
@@ -241,7 +245,7 @@ f18d4aa5428c3920354ce1577465f06762c6a10e829ce6fc13d3cc48dbde2118  home/.config/t
 3670cb4eea8e6fa93c312c828f6aa13c751f777cb7ec801c0123fee8d848682e  home/.config/themes/Coral Lagoon/parallax/middle.png
 b8e68754e75af2084c758d389a5a774fd0bd97efa62cae9f9dcaa1f709b0c2ca  home/.config/themes/Coral Lagoon/quickshell/ParallaxWallpaper.qml
 03f461fcfbf27f379213526e5ab20250461a55ddf332c6ac5a3d149dc4870b2d  home/.config/themes/Coral Lagoon/quickshell/WorkspacePan.qml
-6100ff0637509fda1cbda6446bd81bbd8e6d9b0bfba2e20bed609ceb7297119c  home/.config/themes/Coral Lagoon/quickshell/shell.qml
+fd9004bd31caac6b1cabf865ae5711b7c40c32744d99bc2c225f854c99fce12d  home/.config/themes/Coral Lagoon/quickshell/shell.qml
 42caea92199dedbc9050d9cb3f2f5f93205e02816325fad0647dcdf713b80c34  home/.config/themes/Coral Lagoon/quickshell/widgets/CpuWidget.qml
 eadde50d741b6288c8bec5e41bb189c7d3335849027751cb9ad9c0532bd65dbf  home/.config/themes/Coral Lagoon/quickshell/widgets/DesktopNotifications.qml
 a64457a6be94d3f7a9e64830aec15031f9a153ced23fcba25f612a9468a2707d  home/.config/themes/Coral Lagoon/quickshell/widgets/Glass.qml
@@ -270,7 +274,7 @@ c522193d91af127417ed80ccd897dbd2a910466d3552ca65bd05b6ae5e801bd1  home/.config/t
 8fdab2deb10f6d09909b07cc3a79b8689e12d959dd8e26341dc3e1d51424495d  home/.config/themes/Moonlit Forest/hyprland.lua
 98c3ac67c53e782a6474de0d088648f7191c78e48f74fa0932ae272d79e74a8d  home/.config/themes/Moonlit Forest/kitty/kitty.conf
 3b7738e57de25babae5a59861aaa90e2a8727bf5582676a3bea6ba3f87042eb9  home/.config/themes/Moonlit Forest/quickshell/WorkspacePan.qml
-30d76397c1536e6877798768c8fe987b4da58e13ca1b08eb5fc1dd82cec0f460  home/.config/themes/Moonlit Forest/quickshell/shell.qml
+ea691dff03e7abcaaa0b57da4e3357d2ce352eef951f206eaa0b4cfa112914c1  home/.config/themes/Moonlit Forest/quickshell/shell.qml
 b7d8622fbbf5a043b066b15edd1a43595401f112af39c3bc5ab3ffb4ab3770cb  home/.config/themes/Moonlit Forest/quickshell/widgets/CpuWidget.qml
 45f756477322998370970d8f976466cebb4ff989f7aced2cd51e9d2574bbc7f5  home/.config/themes/Moonlit Forest/quickshell/widgets/Glass.qml
 71424d990b24e4946812c60ec03d65cacd6e9f3cfcfe60749a7dee45ce84fd6c  home/.config/themes/Moonlit Forest/quickshell/widgets/Graph.qml
@@ -302,7 +306,7 @@ b36806ed95a2aae94e9b97d8de001480bd43ffe34a81cc8716e118aace793bae  home/.config/t
 6cc79d99553e63d2f4030ea716b6df9c3608d93209e10162f2751533a348ec17  home/.config/themes/Rivendell/parallax/middle-muted.png
 5b85896dcf5abb1eca7e9636e1e499266d41fddffa724e54e296055bc6f10f25  home/.config/themes/Rivendell/parallax/middle.png
 85bd3ff2f5f4a14e4d1c15323c6fd887a391da115643818620baa3f8e11bf0e5  home/.config/themes/Rivendell/quickshell/ParallaxWallpaper.qml
-e9135b7ddc34abed566a279a743a35dfc356a868f14ffca269628990670eadfb  home/.config/themes/Rivendell/quickshell/shell.qml
+00e46a9be2168afa32292f5723a646cfcf9ba01be5fd9f70eabcde4d8d9c3b81  home/.config/themes/Rivendell/quickshell/shell.qml
 7d9e41e855597ee47269ba4a39e455a2002207701b72ba51e819de2f24b381fe  home/.config/themes/Rivendell/quickshell/widgets/CpuWidget.qml
 e2a0865e6b194b9b6c3a4ece6ebe5cb9cad5125d2e79f9bf8fa290664aa183ae  home/.config/themes/Rivendell/quickshell/widgets/Glass.qml
 ddc75990b574842aa0b339dc0082b31f786ce6026283b29188579e766d28df81  home/.config/themes/Rivendell/quickshell/widgets/Graph.qml
@@ -331,7 +335,7 @@ a8be98c79f689a1c1311fd7530a2cbf41f13eaffcbe7ee3d3ab8647a1df51174  home/.config/t
 ee63dfff7c041301f76671466cdacd45aa7c54d4ccacafc929ecbfd98cbbf99c  home/.config/themes/Space Green/parallax/middle-clean.png
 f8ae415bad12bdc02790241b8dc543d4914ccc993cce5e82b0db87e25f910b10  home/.config/themes/Space Green/parallax/middle.png
 fc16aa3aa98e51e91e385de5ab911059299382a331d49dc80a70e085e6615e0c  home/.config/themes/Space Green/quickshell/ParallaxWallpaper.qml
-8b8a1877417f42bc20187e9fb510632025ea2091e970b39c86ec5149716a5257  home/.config/themes/Space Green/quickshell/shell.qml
+dbc26cbaa7c89a2360992f533642b5caa10d11d2b75264f0ab28022466c095a2  home/.config/themes/Space Green/quickshell/shell.qml
 8ed78f73d8c49dfb4f6fa0cbab083a8a69b0fcc1272e0fe48488824b2d5a4fe6  home/.config/themes/Space Green/quickshell/widgets/CpuWidget.qml
 91ada8912ca496e7623981afba91687bea5e37832ccd4fdd79d3a653955c9fac  home/.config/themes/Space Green/quickshell/widgets/Glass.qml
 9a571ffdd55ac5a99c78ccdcbf3f8ad927ab0cee81cd013cea6f410f77f6a15b  home/.config/themes/Space Green/quickshell/widgets/Graph.qml
@@ -363,6 +367,7 @@ c01b355408157f805353143a126977392625745cd3d8f38ce9d76449d9d6b2ee  home/.local/bi
 da5552262c825430cadd358038ffbcb847f41e0748b19dfd86081e421d1fa8ca  home/.local/bin/power-menu
 49c2cbcaadb94e55fa7205e9aa46c0dbcf8ea4316b974f1e0600a6376b83a776  home/.local/bin/quickshell-launcher
 c709d00b7acb343ef1fd8eb2ad949d490764365eb3d794f53a786b65fb7bbd27  home/.local/bin/quickshell-settings
+493a4b7c295eb80bb438252257e64a1dec8489b6eb263f9c5e9c90333ff14e42  home/.local/bin/quickshell-tray-registry
 381fa613e26841ad89f39bbfb074850783561be336f7cfd977e4525be2b2747d  home/.local/bin/quickshell-widget-drag
 e7999b25365fd1618c1e0bfebd9db7a7342910b54076ed543b8cacd67927b9f7  home/.local/bin/reset-quickshell-widget-layout
 c5a5e773c13e1cb17576cd9c4f485da1da3e1a52cc735181388e656a1fafec27  home/.local/bin/system-widgets
@@ -377,7 +382,7 @@ d615ad3ca5d09a6222cdf64adf880e955fee2231923b6944dfc4f9a5a90cdfe9  home/.local/li
 dfcb6ceada31b1954b5b6f29c1c00dad24ee713f3fadd329a6f2109e72516b88  home/.local/share/applications/quickshell-theme-creator.desktop
 e01df754903af0ab26babb317b5f5a62dd95f770b733c5275414dd3245d00ae7  licenses/Hyprland-BSD-3-Clause.txt
 205cdc679d124a8940c9bdd59d79cd9cc973e87db61582976297e6146c730f9f  scripts/audit.py
-3a2e9ba4b8710db8acc0c96891f12c24eeef82aaf8c025a284abf261e25cba9d  scripts/bootstrap.py
+68a6f5f0dc36863d10a29066a57f144633674dcb7a935848de78175eb07bc0e6  scripts/bootstrap.py
 0077893458724454af75ea076b42f6c060e2cfdd8c307cdd82d9a8b4ef3c233f  scripts/build-overview.sh
 ea109153d7c24a36c29e6c7d6c841a3589aebc125d31f075683e4f8fd019dbd7  scripts/check.py
 8cd8766506a8a1ee89a5cf8d10c095a1e3c1a279fc584a880f0be310d2ec1f74  scripts/install-login-themes.py

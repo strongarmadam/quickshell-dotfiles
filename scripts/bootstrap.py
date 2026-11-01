@@ -8,7 +8,7 @@ import shutil
 import subprocess
 
 CORE = '''hyprland quickshell hyprlock hyprpolkitagent
-qt6-declarative qt6-svg qt6-imageformats python python-pillow
+qt6-declarative qt6-svg qt6-imageformats python python-pillow python-dbus
 pipewire pipewire-pulse wireplumber libpulse fftw
 networkmanager wpa_supplicant bluez bluez-utils upower
 wl-clipboard cliphist grim slurp jq brightnessctl playerctl libnotify pavucontrol

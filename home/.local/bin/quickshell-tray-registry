@@ -1,0 +1,59 @@
+#!/usr/bin/python
+"""Preserve live tray items across desktop bar/theme restarts."""
+import json
+import os
+from pathlib import Path
+import sys
+import time
+import dbus
+
+bus = dbus.SessionBus()
+name = 'org.kde.StatusNotifierWatcher'
+path = '/StatusNotifierWatcher'
+state = Path(os.environ['XDG_RUNTIME_DIR']) / 'quickshell-tray-items.json'
+
+def registered():
+    obj = bus.get_object(name, path)
+    return list(map(str, dbus.Interface(obj, 'org.freedesktop.DBus.Properties').Get(name, 'RegisteredStatusNotifierItems', timeout=1)))
+
+if sys.argv[1] == 'save':
+    try:
+        items = registered()
+        unique = {}
+        for item in items:
+            service, _, object_path = item.partition('/')
+            try:
+                key = (str(bus.get_name_owner(service)), object_path)
+                unique.setdefault(key, item)
+            except dbus.DBusException:
+                pass
+        state.write_text(json.dumps(list(unique.values())))
+    except dbus.DBusException as error:
+        print(f'Tray snapshot unavailable: {error}', file=sys.stderr)
+else:
+    saved = json.loads(state.read_text()) if state.exists() else []
+    # Also recover standard named items that failed to re-register earlier.
+    saved += [str(n) + '/StatusNotifierItem' for n in bus.list_names()
+              if str(n).startswith('org.kde.StatusNotifierItem-')]
+    for attempt in range(40):
+        try:
+            current = registered()
+            break
+        except dbus.DBusException:
+            time.sleep(0.1)
+    else:
+        sys.exit('Tray watcher did not become ready')
+    watcher = dbus.Interface(bus.get_object(name, path), name)
+    for item in dict.fromkeys(saved):
+        service, _, item_path = item.partition('/')
+        if item in current or not bus.name_has_owner(service):
+            continue
+        try:
+            # Verify the object still exists before registering it.
+            dbus.Interface(bus.get_object(service, '/' + item_path),
+                           'org.freedesktop.DBus.Properties').Get(
+                               'org.kde.StatusNotifierItem', 'Id', timeout=1)
+            watcher.RegisterStatusNotifierItem(item, timeout=1)
+            print(f'Restored tray item: {item}')
+        except dbus.DBusException as error:
+            print(f'Skipped unavailable tray item {item}: {error}', file=sys.stderr)

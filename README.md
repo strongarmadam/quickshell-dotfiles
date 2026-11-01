@@ -262,3 +262,9 @@ Apps closed floating reopen at their last size and position. Closing an app tile
 clears its remembered floating layout; the last closed window of an app wins.
 Common file dialogs retain their existing rules. Saved layouts stay local to each
 machine and survive login and config reloads. See [details](docs/FLOATING-WINDOWS.md).
+
+System tray updates: themed right-click menus and a persistent tray watcher preserve
+items across desktop/theme restarts. The watcher requires `python-dbus`; its
+systemd dependency starts it with `quickshell-desktop.service`. After updating an
+existing installation, run `systemctl --user daemon-reload` and restart
+`quickshell-desktop.service` (or log out and back in).
