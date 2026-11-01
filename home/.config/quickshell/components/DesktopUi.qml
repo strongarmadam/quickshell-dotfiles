@@ -247,6 +247,11 @@ Scope {
                 anchors { top: parent.top; left: parent.left; right: parent.right; topMargin: -(Math.max(38, header.height) + 4) * (1 - root.barProgress) }
                 height: Config.Settings.value("shared", "DesktopUi", "height", 38)
                 color: "transparent"
+                MouseArea {
+                    anchors.fill: parent
+                    enabled: !bar.dropOpen
+                    onClicked: appLauncher.toggle("apps")
+                }
                 Row {
                     id: left; anchors { left: parent.left; verticalCenter: parent.verticalCenter; leftMargin: 8 }
 spacing: Config.Settings.value("shared", "DesktopUi", "spacing", 4)
