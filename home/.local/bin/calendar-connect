@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+# Choose and connect a calendar provider: Proton (if installed) or an ICS
+# subscription such as a Google Calendar secret iCal address or a Proton share
+# link. Writes ~/.config/quickshell-calendar/config.toml via the bridge and
+# restarts the user service so the desktop picks up the change.
+set -euo pipefail
+
+BRIDGE="$HOME/.local/share/quickshell-calendar/bridge.py"
+SERVICE="quickshell-calendar.service"
+PROTON="$HOME/.local/bin/proton-cal"
+
+restart() { systemctl --user restart "$SERVICE" >/dev/null 2>&1 || true; }
+
+have_proton=0
+[ -x "$PROTON" ] && have_proton=1
+
+while true; do
+    echo
+    echo "Connect a calendar"
+    echo "  1) Add a calendar subscription (Google secret iCal, Proton share link, ICS)"
+    [ "$have_proton" = 1 ] && echo "  2) Sign in to Proton"
+    [ "$have_proton" = 1 ] && echo "  3) Remove all calendar connections"
+    [ "$have_proton" = 0 ] && echo "  2) Remove all calendar connections"
+    [ "$have_proton" = 1 ] && echo "  4) Done" || echo "  3) Done"
+    read -rp "Choose: " choice || true
+
+    case "$choice" in
+    1)
+        read -rp "Calendar name: " name || true
+        read -rp "ICS URL (https:// or webcal://): " url || true
+        if [ -z "${name:-}" ] || [ -z "${url:-}" ]; then
+            echo "A name and a URL are both required."
+            continue
+        fi
+        case "$url" in
+            http://*|https://*|webcal://*) ;;
+            *) echo "URL must start with https://, http:// or webcal://"; continue ;;
+        esac
+        python3 "$BRIDGE" configure add-ics "$name" "$url"
+        restart
+        echo "Connected \"$name\". Open the calendar and press Sync."
+        ;;
+    2)
+        if [ "$have_proton" = 1 ]; then
+            systemctl --user stop "$SERVICE" >/dev/null 2>&1 || true
+            trap 'systemctl --user start "$SERVICE" >/dev/null 2>&1 || true' EXIT
+            printf 'Sign in to Proton locally. Your password is not stored by this setup.\n\n'
+            "$PROTON" login || echo "Sign-in did not complete."
+            trap - EXIT
+            python3 "$BRIDGE" configure set-provider proton
+            restart
+            echo "Proton selected as the calendar provider."
+        else
+            python3 "$BRIDGE" configure clear
+            restart
+            echo "All calendar connections removed."
+        fi
+        ;;
+    3)
+        if [ "$have_proton" = 1 ]; then
+            python3 "$BRIDGE" configure clear
+            restart
+            echo "All calendar connections removed."
+        else
+            break
+        fi
+        ;;
+    4|"") break ;;
+    *) echo "Not a valid choice." ;;
+    esac
+done
+echo "Done."
