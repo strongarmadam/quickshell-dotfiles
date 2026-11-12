@@ -281,8 +281,7 @@ Item {
                 }
                 Row {
                     width: parent.width; height: 26
-                    Text { width: parent.width - 132; text: Qt.formatDate(root.selectedDate, "ddd, d MMM"); color: root.palette.accentColor; font { pixelSize: 13; bold: true } }
-                    CalendarButton { width: 132; height: 24; text: root.calendarData.authenticated ? "Calendar account…" : "Connect a calendar…"; onClicked: root.connectAccount() }
+                    Text { width: parent.width; text: Qt.formatDate(root.selectedDate, "ddd, d MMM"); color: root.palette.accentColor; font { pixelSize: 13; bold: true } }
                 }
                 ListView {
                     width: parent.width; height: Math.max(36, root.height - 394)
